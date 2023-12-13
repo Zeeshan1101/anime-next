@@ -1,7 +1,7 @@
 export default function Page() {
     return (
-        <div>
-            <h1>Page</h1>
-        </div>
+        <main className="flex min-h-screen w-full flex-col p-10">
+            <h1>Anime</h1>
+        </main>
     );
 }
