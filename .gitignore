@@ -40,3 +40,6 @@ next-env.d.ts
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
+
+src/__generated__
+src/__generated__/*
