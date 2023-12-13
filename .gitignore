@@ -43,3 +43,7 @@ yarn.lock
 
 /src/__generated__
 /src/__generated__/**
+
+
+# IDE 
+.vscode
