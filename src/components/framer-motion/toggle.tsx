@@ -36,7 +36,6 @@ const Toggle = ({
     return (
         <mediaContext.Provider value={{ media, setMedia }}>
             <motion.div
-                layoutId="toggle"
                 className={cn(
                     "relative flex h-8 w-max items-center justify-center rounded-lg bg-slate-200 dark:bg-slate-900",
                     className,
