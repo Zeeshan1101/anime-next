@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { MediaToggle } from "@/components/media-toggle";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,12 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    {children}
+                    <main className=" flex min-h-screen w-full flex-col px-10 py-14 ">
+                        <div>
+                            <MediaToggle />
+                        </div>
+                        {children}
+                    </main>
                     <div className="fixed bottom-5 right-5">
                         <ThemeToggle />
                     </div>
