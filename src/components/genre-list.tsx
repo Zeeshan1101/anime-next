@@ -1,6 +1,7 @@
-import genres from "@/lib/genres";
+import genres, { Genre } from "@/lib/genres";
 import Image from "next/image";
 import HorizontalScrollList from "./framer-motion/horizontal-scroll";
+import React from "react";
 
 const GenreList = () => {
     return (
@@ -11,22 +12,7 @@ const GenreList = () => {
             <div className="px-[--padding-x]">
                 <HorizontalScrollList className="flex gap-[--gap]">
                     {genres?.map((genre, index) => (
-                        <div
-                            key={index}
-                            className="card relative min-h-[15rem] min-w-[240px] flex-shrink-0 gap-1 overflow-hidden rounded-lg"
-                        >
-                            <Image
-                                src={genre.image}
-                                fill
-                                sizes="100%"
-                                alt={genre.genre}
-                                className="absolute inset-0 h-full w-full object-cover"
-                            />
-                            <div className="absolute left-0 top-0 h-full w-full bg-black/50"></div>
-                            <div className="absolute bottom-5 left-5 z-10 text-xl font-semibold text-white">
-                                {genre.genre}
-                            </div>
-                        </div>
+                        <GenreCard key={index} genre={genre} />
                     ))}
                 </HorizontalScrollList>
             </div>
@@ -34,4 +20,24 @@ const GenreList = () => {
     );
 };
 
-export default GenreList;
+const GenreCard = ({ genre }: { genre: Genre }) => {
+    return (
+        <div className="card relative min-h-[10rem] min-w-[240px] flex-shrink-0 gap-1 overflow-hidden rounded-lg sm:min-h-[10rem] md:min-h-[13rem] lg:min-h-[15rem]">
+            <Image
+                src={genre.image}
+                fill
+                sizes="100%"
+                alt={genre.genre}
+                className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute left-0 top-0 h-full w-full bg-black/30"></div>
+            <div className="absolute bottom-5 left-5 z-10 text-lg font-semibold text-white md:text-xl">
+                {genre.genre}
+            </div>
+        </div>
+    );
+};
+
+const MemoizedGenreList = React.memo(GenreList);
+
+export default MemoizedGenreList;

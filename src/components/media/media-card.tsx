@@ -16,7 +16,7 @@ export const MediaCard = ({ image }: { image: MediaFragment }) => {
                 <div className="absolute inset-0 z-10 bg-black/0" />
             </div>
 
-            <div className="md:text-normal line-clamp-1 h-6 pl-1 text-sm md:pl-4">
+            <div className="md:text-normal line-clamp-1 h-6 pl-1 text-sm font-medium md:pl-4">
                 {image.title?.userPreferred}
             </div>
         </div>
