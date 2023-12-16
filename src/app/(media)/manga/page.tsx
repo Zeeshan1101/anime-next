@@ -8,10 +8,7 @@ import Link from "next/link";
 export default async function Page() {
     return (
         <main>
-            <h1> Manga</h1>
-            <Button asChild variant="link">
-                <Link href={anilist.getAuthURL()}>Login</Link>
-            </Button>
+            <h1>Manga</h1>
         </main>
     );
 }

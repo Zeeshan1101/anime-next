@@ -10,10 +10,9 @@ export async function GET(request: NextRequest) {
             searchParams.get("code") as string,
       );
 
-      const { access_token, refresh_token } = tokens;
+      const { access_token } = tokens;
 
       cookies().set("access_token", access_token);
-      cookies().set("refresh_token", refresh_token);
 
       redirect("/");
 }

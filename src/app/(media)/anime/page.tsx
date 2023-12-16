@@ -1,17 +1,32 @@
-import { gql } from "@/__generated__";
-import { Button } from "@/components/ui/button";
+import { MediaFragment, MediaSeason, MediaType } from "@/__generated__/graphql";
+import { AnimeCarousel } from "@/components/anime-carousel";
+import { PageQuery } from "@/graphql/pages/anime";
 import { getClient } from "@/lib/graphql";
-import anilist from "@/lib/oauth";
-import { cookies } from "next/headers";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 
 export default async function Page() {
+    const { data } = await getClient().query({
+        query: PageQuery,
+        variables: {
+            nextSeason: MediaSeason.Winter,
+            nextYear: 2024,
+            season: MediaSeason.Fall,
+            seasonYear: 2023,
+            type: MediaType.Anime,
+        },
+    });
+
+    if (!data) {
+        notFound();
+    }
+
     return (
-        <main className="flex min-h-screen w-full flex-col p-10">
-            <h1>Anime</h1>
-            <Button asChild variant="link">
-                <Link href={anilist.getAuthURL()}>Login</Link>
-            </Button>
+        <main>
+            <AnimeCarousel
+                images={data.trending?.anime as MediaFragment[]}
+                alt
+            />
+            <div className="mt-5">Hello</div>
         </main>
     );
 }
