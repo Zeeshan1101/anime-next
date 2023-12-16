@@ -1,26 +1,26 @@
-"use client";
-import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Button, ButtonProps } from "@/components/ui/button";
+import Link from "next/link";
+import anilist from "@/lib/oauth";
+import { cn } from "@/lib/utils";
+import { BackButton } from "./components";
 
 export default function Page() {
-    const router = useRouter();
-
     return (
         <main className="flex min-h-screen w-full flex-col p-24">
-            <button
-                className="h-14 w-full"
-                onClick={() => {
-                    router.back();
-                }}
-            >
-                <div className="flex items-center gap-5 transition-all duration-200 hover:gap-4">
-                    <ArrowLeft className="h-6 w-6" />
-                    Back
-                </div>
-            </button>
+            <BackButton />
             <div className="flex flex-1 items-center justify-center ">
-                Hello
+                <LoginButton className="px-5 py-2">
+                    Login With Anilist
+                </LoginButton>
             </div>
         </main>
     );
 }
+
+const LoginButton = ({ className, children, ...props }: ButtonProps) => {
+    return (
+        <Button className={cn("px-3 py-1", className)} asChild {...props}>
+            <Link href={anilist.getAuthURL()}>{children}</Link>
+        </Button>
+    );
+};

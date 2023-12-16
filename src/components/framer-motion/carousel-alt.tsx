@@ -70,6 +70,9 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
                                     <motion.span
                                         layoutId="coursel-on"
                                         className="absolute inset-0 h-full w-full rounded-full outline outline-offset-2 outline-[--media-color]"
+                                        animate={{
+                                            outlineColor: "var(--media-color)",
+                                        }}
                                     ></motion.span>
                                 )}
                             </motion.button>

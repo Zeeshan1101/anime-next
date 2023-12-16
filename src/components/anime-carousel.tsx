@@ -8,25 +8,23 @@ import { cn } from "@/lib/utils";
 import { CarouselAlt } from "./framer-motion/carousel-alt";
 import { MediaFragment } from "@/__generated__/graphql";
 
-const images = [
-    {
-        alt: "One Piece",
-        url: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21-wf37VakJmZqs.jpg",
-        color: "red",
-    },
-    {
-        alt: "Jujustu Kaisen",
-        url: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/145064-S7qAgxf6kMrW.jpg",
-        color: "orange",
-    },
-    {
-        alt: "Spy x Family",
-        url: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/158927-zXtbXUO5iKzX.jpg",
-        color: "purple",
-    },
-];
-
-type ImagesType = typeof images;
+// const images = [
+//     {
+//         alt: "One Piece",
+//         url: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21-wf37VakJmZqs.jpg",
+//         color: "red",
+//     },
+//     {
+//         alt: "Jujustu Kaisen",
+//         url: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/145064-S7qAgxf6kMrW.jpg",
+//         color: "orange",
+//     },
+//     {
+//         alt: "Spy x Family",
+//         url: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/158927-zXtbXUO5iKzX.jpg",
+//         color: "purple",
+//     },
+// ];
 
 const MotionImage = motion(Image);
 

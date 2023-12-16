@@ -68,7 +68,12 @@
 
 @layer base {
     * {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
         @apply border-border;
+    }
+    *::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari and Opera */
     }
 
     body {

@@ -3,13 +3,11 @@ import { ApolloClient, HttpLink, InMemoryCache, from } from "@apollo/client";
 import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
 import { cookies } from "next/headers";
 import { removeTypenameFromVariables } from "@apollo/client/link/remove-typename";
-import { setContext } from "@apollo/client/link/context";
 
 const removeTypenameLink = removeTypenameFromVariables();
 
 export async function getClient() {
       const token = cookies().get("access_token")?.value;
-      console.log(token, "token");
       const httpLink = new HttpLink({
             uri: process.env.ANILIST_GRAPHQL as string,
             // you can disable result caching here if you want to
