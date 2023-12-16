@@ -26,7 +26,9 @@ export const LoginButton = async ({ className }: { className?: string }) => {
         );
     }
 
-    const { data } = await getClient().query({
+    const { data } = await (
+        await getClient()
+    ).query({
         query: userQuery,
         context: {
             fetchOptions: {

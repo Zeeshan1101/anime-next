@@ -5,7 +5,9 @@ import { getClient } from "@/lib/graphql";
 import { notFound } from "next/navigation";
 
 export default async function Page() {
-    const { data } = await getClient().query({
+    const { data } = await (
+        await getClient()
+    ).query({
         query: PageQuery,
         variables: {
             nextSeason: MediaSeason.Winter,
