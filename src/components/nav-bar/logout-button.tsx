@@ -13,6 +13,7 @@ export const LogoutButton = () => {
                 variant="link"
                 onClick={async () => {
                     await logout();
+                    router.refresh();
                 }}
             >
                 <LogOut size={16} />
