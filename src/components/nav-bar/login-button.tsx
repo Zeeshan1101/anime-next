@@ -12,6 +12,7 @@ import { userQuery } from "@/graphql/user";
 
 export const LoginButton = async ({ className }: { className?: string }) => {
     const accessToken = cookies().get("access_token")?.value;
+    console.log(accessToken);
     if (!accessToken) {
         return (
             <Button
