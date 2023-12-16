@@ -10,7 +10,7 @@ const MediaToggle = () => {
     return (
         <Toggle
             state={pathname.startsWith("/anime") ? "anime" : "manga"}
-            className="h-10"
+            className="order-1 col-span-1 h-10"
             onMediaChange={(state) => {
                 router.push(`/${state}`);
             }}

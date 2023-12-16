@@ -10,9 +10,11 @@ import { MediaFragment } from "@/__generated__/graphql";
 const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
+    const filterImages = images.filter((image) => image?.bannerImage);
+
     useIsomorphicLayoutEffect(() => {
         const interval = setInterval(() => {
-            setActiveIndex((prev) => (prev + 1) % images.length);
+            setActiveIndex((prev) => (prev + 1) % filterImages.length);
         }, 3000);
         return () => clearInterval(interval);
     }, [images.length, activeIndex]);
@@ -29,11 +31,12 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
                     ease: "easeInOut",
                 }}
             >
-                {images.map((image, index) => {
+                {filterImages.map((image, index) => {
+                    if (image?.bannerImage === null) return;
                     return (
                         <div key={index} className="h-full w-full">
                             <CarouselItem
-                                image={image?.bannerImage as string}
+                                image={image?.bannerImage || ""}
                                 alt={image.title?.userPreferred as string}
                                 episode={
                                     image.nextAiringEpisode?.episode as number
@@ -48,7 +51,9 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
             </motion.div>
             <div className="absolute right-5 top-1/2 z-[999] -translate-y-1/2">
                 <div className="flex flex-col items-center gap-4">
-                    {images.map((image, index) => {
+                    {filterImages.map((image, index) => {
+                        if (image?.bannerImage === null) return;
+
                         return (
                             <motion.button
                                 key={index}
@@ -103,14 +108,16 @@ const CarouselItem = ({
                 alt={alt}
                 className="h-full w-full object-cover object-center"
             />
-            <div className="absolute bottom-5 z-20 flex w-full items-center justify-between px-14 ">
+            <div className="absolute bottom-5 z-20 flex w-full flex-col items-center justify-between px-14 text-center sm:flex-row sm:text-justify">
                 <div className="text-white">
-                    <div className="text-3xl font-semibold">{alt}</div>
+                    <div className="w-full text-xl font-semibold sm:text-2xl ">
+                        {alt}
+                    </div>
                     <div className="opacity-60 ">
                         {episode && episode} Episodes
                     </div>
                 </div>
-                <div className="text-xl font-medium text-white">
+                <div className="text-normal font-medium text-white sm:text-xl">
                     {airingAt && moment.unix(airingAt).calendar()}
                 </div>
             </div>

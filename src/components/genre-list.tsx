@@ -1,37 +1,17 @@
-"use client";
-
 import genres from "@/lib/genres";
-import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import HorizontalScrollList from "./framer-motion/horizontal-scroll";
 
 const GenreList = () => {
-    const ref = useRef<any>(null);
-
-    const [width, setWidth] = useState(0);
-
-    useEffect(() => {
-        if (ref.current) {
-            setWidth(ref.current?.scrollWidth - ref.current?.offsetWidth);
-        }
-    }, []);
-
     return (
         <div className="popular space-y-3 overflow-hidden">
-            <div className="flex w-full items-center justify-between">
+            <div className="flex w-full items-center justify-between px-[--padding-x]">
                 <h1 className="text-xl font-semibold capitalize">Genres</h1>
             </div>
-            <div ref={ref}>
-                <motion.div
-                    drag="x"
-                    dragConstraints={{
-                        right: 0,
-                        left: -width,
-                    }}
-                    className=" flex gap-10"
-                >
+            <div className="px-[--padding-x]">
+                <HorizontalScrollList className="flex gap-[--gap]">
                     {genres?.map((genre, index) => (
-                        <motion.div
+                        <div
                             key={index}
                             className="card relative min-h-[15rem] min-w-[240px] flex-shrink-0 gap-1 overflow-hidden rounded-lg"
                         >
@@ -43,12 +23,12 @@ const GenreList = () => {
                                 className="absolute inset-0 h-full w-full object-cover"
                             />
                             <div className="absolute left-0 top-0 h-full w-full bg-black/50"></div>
-                            <div className="absolute bottom-5 left-5 z-10 text-xl font-semibold">
+                            <div className="absolute bottom-5 left-5 z-10 text-xl font-semibold text-white">
                                 {genre.genre}
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
-                </motion.div>
+                </HorizontalScrollList>
             </div>
         </div>
     );

@@ -12,9 +12,13 @@ export const SearchInput = React.forwardRef<HTMLInputElement, InputProps>(
         return (
             <Input
                 ref={ref}
-                className={cn("w-96 pl-5", className)}
+                className={cn(
+                    "order-3 col-span-2 w-full pl-5 md:order-2 lg:w-96",
+                    className,
+                )}
                 {...props}
                 defaultValue={search || ""}
+                placeholder="Search..."
             />
         );
     },

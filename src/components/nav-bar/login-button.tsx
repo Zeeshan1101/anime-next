@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { LogIn, LogOut } from "lucide-react";
+import { LogIn } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import { cookies } from "next/headers";
@@ -14,15 +14,17 @@ export const LoginButton = async ({ className }: { className?: string }) => {
     const accessToken = cookies().get("access_token")?.value;
     if (accessToken === undefined) {
         return (
-            <Button
-                className={cn("px-3 py-1", className)}
-                variant="ghost"
-                asChild
-            >
-                <Link href={anilist.getAuthURL()}>
-                    <LogIn size={16} />
-                </Link>
-            </Button>
+            <div className="order-2 flex justify-end md:order-3">
+                <Button
+                    className={cn(" px-3 py-1 ", className)}
+                    variant="ghost"
+                    asChild
+                >
+                    <Link href={anilist.getAuthURL()}>
+                        <LogIn size={16} />
+                    </Link>
+                </Button>
+            </div>
         );
     }
 
@@ -42,7 +44,7 @@ export const LoginButton = async ({ className }: { className?: string }) => {
     if (!data) return;
 
     return (
-        <div className="flex items-center gap-5">
+        <div className="order-2 flex items-center justify-end gap-5 md:order-3">
             <Button
                 className={cn("h-6 w-6 rounded-lg", className)}
                 variant={"link"}

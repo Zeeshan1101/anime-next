@@ -13,7 +13,7 @@ export const PageQuery = gql(`
                         ...media
                   }
             }
-            season: Page(page: 1, perPage: 6) {
+            season: Page(page: 1, perPage: 10) {
                  anime: media(
                         season: $season
                         seasonYear: $seasonYear
@@ -24,7 +24,7 @@ export const PageQuery = gql(`
                         ...media
                   }
             }
-            nextSeason: Page(page: 1, perPage: 6) {
+            nextSeason: Page(page: 1, perPage: 10) {
                   anime:media(
                         season: $nextSeason
                         seasonYear: $nextYear
@@ -35,7 +35,7 @@ export const PageQuery = gql(`
                         ...media
                   }
             }
-            popular: Page(page: 1, perPage: 6) {
+            popular: Page(page: 1, perPage: 10) {
                  anime: media(sort: POPULARITY_DESC, type: $type, isAdult: false) {
                         ...media
                   }

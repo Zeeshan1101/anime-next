@@ -10,9 +10,12 @@ export async function GET(request: NextRequest) {
             searchParams.get("code") as string,
       );
 
-      const { access_token } = tokens;
+      const { access_token, expires_in } = tokens;
 
-      cookies().set("access_token", access_token);
+      cookies().set("access_token", access_token, {
+            httpOnly: true,
+            maxAge: expires_in,
+      });
 
       redirect("/");
 }
