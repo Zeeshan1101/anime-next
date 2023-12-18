@@ -1,40 +1,45 @@
 "use client";
 import { motion } from "framer-motion";
-import {
+import React, {
     ReactNode,
     createContext,
     useContext,
     useEffect,
     useState,
+    useTransition,
 } from "react";
 import { cn } from "@/lib/utils";
 
 const mediaContext = createContext<{
     media: string;
     setMedia: (state: string) => void;
+    onMediaChange?: (state: string) => void;
+    onAuxClick?: (state: string) => void;
 } | null>(null);
 
 const Toggle = ({
     state,
     children,
     className,
-    onMediaChange,
+    onMediaChange = () => {},
+    onAuxClick = () => {},
 }: {
     state: string;
     children: ReactNode;
     className?: string;
     onMediaChange?: (state: string) => void;
+    onAuxClick?: (state: string) => void;
 }) => {
     const [media, setMedia] = useState(state);
 
     useEffect(() => {
-        if (onMediaChange) {
-            onMediaChange(media);
-        }
-    }, [media, onMediaChange]);
+        setMedia(state);
+    }, [state]);
 
     return (
-        <mediaContext.Provider value={{ media, setMedia }}>
+        <mediaContext.Provider
+            value={{ media, setMedia, onMediaChange, onAuxClick }}
+        >
             <motion.div
                 className={cn(
                     "relative flex h-8 w-max items-center justify-center rounded-lg bg-slate-200 dark:bg-slate-900 ",
@@ -47,23 +52,39 @@ const Toggle = ({
     );
 };
 
-const ToggleButton = ({
-    value,
-    children,
-    className,
-    motionClassName,
-}: {
-    value: string;
-    children: ReactNode;
-    className?: string;
-    motionClassName?: string;
-}) => {
+const ToggleButton = React.forwardRef<
+    HTMLButtonElement,
+    {
+        value: string;
+        children: ReactNode;
+        className?: string;
+        motionClassName?: string;
+    }
+>(({ value, children, className, motionClassName, ...props }, ref) => {
     const ctx = useContext(mediaContext);
+    const [isPending, startTransition] = useTransition();
 
     return (
         <button
+            ref={ref}
+            onAuxClick={() => {
+                startTransition(() => {
+                    ctx?.setMedia(value);
+                    if (ctx?.onAuxClick) {
+                        ctx?.onAuxClick(value);
+                    }
+                });
+            }}
             className={cn("group w-24 text-center text-sm ", className)}
-            onClick={() => ctx?.setMedia(value)}
+            onClick={() => {
+                startTransition(() => {
+                    ctx?.setMedia(value);
+                    if (ctx?.onMediaChange) {
+                        ctx?.onMediaChange(value);
+                    }
+                });
+            }}
+            {...props}
         >
             <div className="relative z-20 font-medium text-white mix-blend-exclusion ">
                 {children}
@@ -88,6 +109,8 @@ const ToggleButton = ({
             ></div>
         </button>
     );
-};
+});
+
+ToggleButton.displayName = "ToggleButton";
 
 export { Toggle, ToggleButton };

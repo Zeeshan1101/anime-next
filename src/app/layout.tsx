@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { TailwindInticator } from "@/components/tailwind-indicator";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
                     <div className="fixed bottom-5 right-5 z-50">
                         <ThemeToggle />
                     </div>
+                    <TailwindInticator />
                 </ThemeProvider>
             </body>
         </html>

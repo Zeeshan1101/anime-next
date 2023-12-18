@@ -5,10 +5,10 @@ import { Button } from "../ui/button";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import anilist from "@/lib/oauth";
-import { getClient } from "@/lib/graphql";
 import { AvatarImage, Avatar, AvatarFallback } from "../ui/avatar";
 import { LogoutButton } from "./logout-button";
 import { userQuery } from "@/graphql/user";
+import { anilist_client } from "@/lib/graphql-request";
 
 export const LoginButton = async ({ className }: { className?: string }) => {
     const accessToken = cookies().get("access_token")?.value;
@@ -16,7 +16,7 @@ export const LoginButton = async ({ className }: { className?: string }) => {
         return (
             <div className="order-2 flex justify-end md:order-3">
                 <Button
-                    className={cn(" px-3 py-1 ", className)}
+                    className={cn(" p-3 ", className)}
                     variant="ghost"
                     asChild
                 >
@@ -28,17 +28,11 @@ export const LoginButton = async ({ className }: { className?: string }) => {
         );
     }
 
-    const { data } = await (
-        await getClient()
-    ).query({
-        query: userQuery,
-        context: {
-            fetchOptions: {
-                next: {
-                    tags: ["user"],
-                },
-            },
-        },
+    const data = await anilist_client.request(userQuery, undefined, {
+        Authorization: `Bearer ${accessToken}`,
+        // next: {
+        //     tags: ["user"] as unknown,
+        // } as unknown as string,
     });
 
     if (!data) return;
