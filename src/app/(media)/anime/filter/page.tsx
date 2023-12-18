@@ -1,15 +1,8 @@
-import { filterParamsCache } from "@/lib/filterParams";
+import { filterParamsCache } from "@/lib/filter-params";
 import { Suspense } from "react";
 import { MediaList } from "./components";
 import { Loader } from "@/components/loader";
-
-const removeEmpty = (obj: any) => {
-    Object.keys(obj).forEach((key) => {
-        if (obj[key] && typeof obj[key] === "object") removeEmpty(obj[key]);
-        else if (obj[key] === null) delete obj[key];
-    });
-    return obj;
-};
+import { removeEmpty } from "@/lib/utils";
 
 export default async function Page({
     searchParams,

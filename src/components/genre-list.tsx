@@ -5,11 +5,11 @@ import React from "react";
 
 const GenreList = () => {
     return (
-        <div className="popular space-y-3 overflow-hidden">
+        <div className="relative w-full space-y-3 ">
             <div className="flex w-full items-center justify-between px-[--padding-x]">
                 <h1 className="text-xl font-semibold capitalize">Genres</h1>
             </div>
-            <div className="px-[--padding-x]">
+            <div className="overflow-hidden px-[--padding-x]">
                 <HorizontalScrollList className="flex gap-[--gap]">
                     {genres?.map((genre, index) => (
                         <GenreCard key={index} genre={genre} />

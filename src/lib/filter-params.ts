@@ -14,8 +14,8 @@ import {
 } from "next-usequerystate/parsers";
 
 export const filterParams = {
-      page: parseAsInteger,
-      id: parseAsInteger,
+      page: parseAsInteger.withDefault(1),
+      // id: parseAsInteger,
       type: parseAsStringEnum<MediaType>(Object.values(MediaType)).withDefault(
             MediaType.Anime,
       ),
@@ -28,6 +28,7 @@ export const filterParams = {
       seasonYear: parseAsInteger,
       year: parseAsString,
       genres: parseAsArrayOf(parseAsString),
+      perPage: parseAsInteger.withDefault(12),
 };
 
 export const filterParamsCache = createSearchParamsCache(filterParams);

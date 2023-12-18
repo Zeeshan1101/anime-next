@@ -1,15 +1,8 @@
-import { AnimeFragment } from "@/__generated__/graphql";
+import { AnimeFragment, PageInfo } from "@/__generated__/graphql";
 import { MediaCard } from "@/components/media/media-card";
+import { Pagination } from "@/components/pagination";
 import { FilterQuery } from "@/graphql/pages/filter";
 import { anilist_client } from "@/lib/graphql-request";
-
-const removeEmpty = (obj: any) => {
-    Object.keys(obj).forEach((key) => {
-        if (obj[key] && typeof obj[key] === "object") removeEmpty(obj[key]);
-        else if (obj[key] === null) delete obj[key];
-    });
-    return obj;
-};
 
 export const MediaList = async ({
     params,
@@ -20,11 +13,12 @@ export const MediaList = async ({
 }) => {
     const data = await anilist_client.request(FilterQuery, {
         ...params,
-        perPage: 18,
     });
 
+    console.log(data);
+
     return (
-        <div>
+        <div className="w-full">
             <div className="grid w-full grid-cols-2 gap-[--gap] md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
                 {data?.animes?.media?.map((anime, index) => {
                     return (
@@ -36,6 +30,8 @@ export const MediaList = async ({
                     );
                 })}
             </div>
+            {/* @ts-ignore */}
+            <Pagination pageInfo={data?.animes?.pageInfo as PageInfo} />
         </div>
     );
 };

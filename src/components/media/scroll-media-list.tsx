@@ -13,7 +13,7 @@ const ScrollMediaList = ({
     link: string;
 }) => {
     return (
-        <div className="space-y-3 overflow-hidden">
+        <div className="space-y-3">
             <div className="flex w-full items-center justify-between px-[--padding-x]">
                 <h1 className="text-xl font-semibold capitalize">{title}</h1>
                 <Link
@@ -23,7 +23,7 @@ const ScrollMediaList = ({
                     See all
                 </Link>
             </div>
-            <div className="px-[--padding-x]">
+            <div className="overflow-hidden px-[--padding-x]">
                 <HorizontalScrollList className="flex gap-[--gap]">
                     {media?.map((image: MediaFragment, index) => (
                         <MediaCard image={image} key={index} scroll />
