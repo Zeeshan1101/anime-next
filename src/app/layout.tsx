@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { TailwindInticator } from "@/components/tailwind-indicator";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -14,7 +15,6 @@ export const metadata: Metadata = {
     title: "Anime Tracking App",
     description: "Track your anime progress",
 };
-
 
 export default function RootLayout({
     children,
@@ -31,6 +31,7 @@ export default function RootLayout({
                 <meta property="og:image:height" content="630" />
             </head>
             <body className={poppins.className}>
+                <SpeedInsights />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
