@@ -1,4 +1,4 @@
-# anime-next1
+# anime-next
 
 ## Description
 This repository contains the source code for Anime-next.
