@@ -9,8 +9,8 @@ This repository contains the source code for Anime-next.
 Clone this repository using Git:
 
 ```bash
-git clone https://github.com/username/repository.git
-cd repository
+git clone https://github.com/Zeeshan1101/anime-next.git
+cd anime-next
 ```
 
 ### Environment Variables
