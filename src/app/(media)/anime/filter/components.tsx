@@ -15,20 +15,26 @@ export const MediaList = async ({
         ...params,
     });
 
-    console.log(data);
-
     return (
-        <div className="w-full">
-            <div className="grid w-full grid-cols-2 gap-[--gap] md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-                {data?.animes?.media?.map((anime, index) => {
-                    return (
-                        <MediaCard
-                            key={index}
-                            image={anime as AnimeFragment}
-                            className="min-h-[18rem] sm:min-h-[20rem] md:min-h-[22rem] lg:min-h-[22rem] xl:min-h-[24rem]"
-                        />
-                    );
-                })}
+        <div className="flex h-full w-full flex-col gap-2">
+            <div className=" w-full flex-1">
+                {data?.animes?.media?.length ? (
+                    <div className="grid  w-full grid-cols-2 gap-[--gap] md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+                        {data?.animes?.media?.map((anime, index) => {
+                            return (
+                                <MediaCard
+                                    key={index}
+                                    image={anime as AnimeFragment}
+                                    className="min-h-[18rem] sm:min-h-[20rem] md:min-h-[22rem] lg:min-h-[22rem] xl:min-h-[24rem]"
+                                />
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                        No results found
+                    </div>
+                )}
             </div>
             {/* @ts-ignore */}
             <Pagination pageInfo={data?.animes?.pageInfo as PageInfo} />

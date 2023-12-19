@@ -16,6 +16,8 @@ export const LoginButton = async ({ className }: { className?: string }) => {
         return (
             <div className="order-2 flex justify-end md:order-3">
                 <Button
+                    role="button"
+                    aria-label="Login"
                     className={cn(" p-3 ", className)}
                     variant="ghost"
                     asChild
@@ -40,6 +42,8 @@ export const LoginButton = async ({ className }: { className?: string }) => {
     return (
         <div className="order-2 flex items-center justify-end gap-5 md:order-3">
             <Button
+                role="button"
+                aria-label="Profile"
                 className={cn("h-6 w-6 rounded-lg", className)}
                 variant={"link"}
             >
@@ -47,6 +51,7 @@ export const LoginButton = async ({ className }: { className?: string }) => {
                     <AvatarImage
                         src={data?.user?.avatar?.large as string}
                         className="object-cover"
+                        alt={data.user?.name || "user avatar"}
                     />
                     <AvatarFallback>{data?.user?.name}</AvatarFallback>
                 </Avatar>

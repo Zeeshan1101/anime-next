@@ -56,6 +56,8 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
 
                         return (
                             <motion.button
+                                role="button"
+                                aria-label={`carousel-button-${index}`}
                                 key={index}
                                 className={cn(
                                     "relative z-10 h-4 w-4 rounded-full bg-[--media-color] transition-all duration-300",

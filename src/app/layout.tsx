@@ -15,6 +15,8 @@ export const metadata: Metadata = {
     description: "Track your anime progress",
 };
 
+export const runtime = "edge";
+
 export default function RootLayout({
     children,
 }: {
@@ -22,6 +24,13 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
+            <head>
+                <meta property="og:image" content="<generated>" />
+                <meta property="og:image:alt" content="About Acme" />
+                <meta property="og:image:type" content="image/png" />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+            </head>
             <body className={poppins.className}>
                 <ThemeProvider
                     attribute="class"

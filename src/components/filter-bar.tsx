@@ -10,30 +10,34 @@ import { usePathname } from "next/navigation";
 import { SelectInput } from "./input/select-input";
 import { MediaSeason } from "@/__generated__/graphql";
 import { useRef } from "react";
-import { getNumberRange } from "@/lib/utils";
+import { getNumberRange, reverseMap } from "@/lib/utils";
+import { useTransition } from "react";
+import { useGesture } from "@use-gesture/react";
 
 type Season = keyof typeof MediaSeason;
-
-function reverseMap(enumObj: any, value: string) {
-    return Object.keys(enumObj).find((key) => enumObj[key] === value);
-}
 
 const years = getNumberRange(1960, new Date().getFullYear()).reverse();
 
 export const FilterBar = () => {
     const pathname = usePathname();
     const ref = useRef<HTMLDivElement>(null);
+    const isScrolling = useRef(false);
+
+    const [_, startTransition] = useTransition();
 
     const [filterParam, setFilterParams] = useQueryStates(filterParams, {
-        shallow: false,
-        history: "replace",
+        startTransition,
+        history: "push",
     });
 
     const { genres, season, seasonYear } = filterParam;
 
     return (
-        <div ref={ref} className="my-3 mb-8 w-full overflow-hidden">
-            <div className="flex h-10 w-full items-center gap-14  overflow-auto px-[--padding-x] [&>*]:flex-shrink-0">
+        <div className="my-3 mb-4 w-full overflow-hidden">
+            <div
+                ref={ref}
+                className=" flex h-10 w-full items-center  gap-14 overflow-auto px-[--padding-x] [&>*]:flex-shrink-0"
+            >
                 <Button size="primary" asChild>
                     <Link
                         href={{
@@ -51,9 +55,9 @@ export const FilterBar = () => {
                         value: genre.genre,
                     }))}
                     selected={genres as string[]}
-                    onChange={(genres) =>
-                        setFilterParams({ genres, page: null })
-                    }
+                    onChange={(genres) => {
+                        setFilterParams({ genres, page: null });
+                    }}
                 />
                 <SelectInput
                     title="Season"
@@ -61,9 +65,7 @@ export const FilterBar = () => {
                         label: season,
                         value: season,
                     }))}
-                    defaultValue={
-                        (season && reverseMap(MediaSeason, season)) || undefined
-                    }
+                    value={(season && reverseMap(MediaSeason, season)) || ""}
                     onValueChange={(value) => {
                         setFilterParams({
                             season: MediaSeason[value as Season],
@@ -77,7 +79,7 @@ export const FilterBar = () => {
                         label: year.toString(),
                         value: year.toString(),
                     }))}
-                    defaultValue={(seasonYear && `${seasonYear}`) || undefined}
+                    value={(seasonYear && `${seasonYear}`) || ""}
                     onValueChange={(value) => {
                         setFilterParams({
                             seasonYear: parseInt(value as string),

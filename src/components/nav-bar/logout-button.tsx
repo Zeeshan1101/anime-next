@@ -10,6 +10,8 @@ export const LogoutButton = () => {
     return (
         <div className="flex h-5 items-center justify-center rounded-lg px-0">
             <Button
+                role="button"
+                aria-label="Logout"
                 variant="link"
                 onClick={async () => {
                     await logout();

@@ -1,9 +1,6 @@
 "use client";
 import { filterParams } from "@/lib/filter-params";
-import {
-    DoubleArrowLeftIcon,
-    DoubleArrowRightIcon,
-} from "@radix-ui/react-icons";
+
 import {
     Select,
     SelectTrigger,
@@ -28,23 +25,19 @@ type PageInfo = {
 export const Pagination = ({ pageInfo }: { pageInfo: PageInfo }) => {
     const [__, startTransition] = useTransition();
     const [_, setFilterParams] = useQueryStates(filterParams, {
-        shallow: false,
-        history: "replace",
+        history: "push",
+        startTransition,
     });
 
     const handlePageChange = (page: number) => {
-        startTransition(() => {
-            setFilterParams({
-                page,
-            });
+        setFilterParams({
+            page,
         });
     };
 
     const handlePerPageChange = (perPage: number) => {
-        startTransition(() => {
-            setFilterParams({
-                perPage,
-            });
+        setFilterParams({
+            perPage,
         });
     };
 
@@ -52,23 +45,38 @@ export const Pagination = ({ pageInfo }: { pageInfo: PageInfo }) => {
     const next = pageInfo.hasNextPage;
 
     return (
-        <div className="my-4 flex w-full items-center justify-between px-2 md:justify-end">
-            <div className="flex items-center space-x-6 lg:space-x-8">
-                <div className="flex items-center space-x-2">
-                    <p className="hidden text-sm font-medium sm:block">
-                        Rows per page
-                    </p>
+        <div className=" flex h-16 w-full items-center justify-center">
+            <div className="flex items-center gap-2">
+                <Button
+                    variant="outline"
+                    className="h-8 w-8 p-2"
+                    onClick={() => {
+                        handlePageChange(pageInfo.currentPage - 1);
+                    }}
+                    disabled={!prev}
+                >
+                    <span className="sr-only">Go to previous page</span>
+                    <ChevronLeftIcon className="h-4 w-4" />
+                </Button>
+                <div className="flex items-center gap-2 px-2">
+                    <span className="text-sm text-gray-500">
+                        {pageInfo.currentPage} x
+                    </span>
                     <Select
                         value={`${pageInfo.perPage}`}
                         onValueChange={(value) => {
                             handlePerPageChange(parseInt(value));
                         }}
                     >
-                        <SelectTrigger className="h-8 w-[70px]">
+                        <SelectTrigger
+                            role="button"
+                            aria-label="per page"
+                            className="h-8 w-20 sm:w-[70px]"
+                        >
                             <SelectValue placeholder={pageInfo.perPage} />
                         </SelectTrigger>
                         <SelectContent side="top">
-                            {getNumberRange(0, 30).map((pageSize) => (
+                            {getNumberRange(1, 30).map((pageSize) => (
                                 <SelectItem
                                     key={pageSize}
                                     value={`${pageSize}`}
@@ -79,58 +87,17 @@ export const Pagination = ({ pageInfo }: { pageInfo: PageInfo }) => {
                         </SelectContent>
                     </Select>
                 </div>
-                <div className="flex w-[150px] items-center justify-center gap-1 text-sm font-medium">
-                    Page {pageInfo.currentPage}
-                    <span className="hidden sm:block">
-                        of {pageInfo.lastPage}
-                    </span>
-                </div>
-                <div className="flex items-center space-x-2">
-                    <Button
-                        variant="outline"
-                        className="hidden h-8 w-8 p-0 lg:flex"
-                        onClick={() => {
-                            handlePageChange(1);
-                        }}
-                        disabled={!prev}
-                    >
-                        <span className="sr-only">Go to first page</span>
-                        <DoubleArrowLeftIcon className="h-4 w-4" />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className="h-8 w-8 p-0"
-                        onClick={() => {
-                            handlePageChange(pageInfo.currentPage - 1);
-                        }}
-                        disabled={!prev}
-                    >
-                        <span className="sr-only">Go to previous page</span>
-                        <ChevronLeftIcon className="h-4 w-4" />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className="h-8 w-8 p-0"
-                        onClick={() => {
-                            handlePageChange(pageInfo.currentPage + 1);
-                        }}
-                        disabled={!next}
-                    >
-                        <span className="sr-only">Go to next page</span>
-                        <ChevronRightIcon className="h-4 w-4" />
-                    </Button>
-                    <Button
-                        variant="outline"
-                        className="hidden h-8 w-8 p-0 lg:flex"
-                        onClick={() => {
-                            handlePageChange(pageInfo.lastPage);
-                        }}
-                        disabled={!(next && pageInfo.lastPage)}
-                    >
-                        <span className="sr-only">Go to last page</span>
-                        <DoubleArrowRightIcon className="h-4 w-4" />
-                    </Button>
-                </div>
+                <Button
+                    variant="outline"
+                    className="h-8 w-8 p-2"
+                    onClick={() => {
+                        handlePageChange(pageInfo.currentPage + 1);
+                    }}
+                    disabled={!next}
+                >
+                    <span className="sr-only">Go to next page</span>
+                    <ChevronRightIcon className="h-4 w-4" />
+                </Button>
             </div>
         </div>
     );

@@ -17,10 +17,12 @@ export const MediaCard = ({
 }) => {
     const router = useRouter();
 
+    const type = image.type === "ANIME" ? "anime" : "manga";
+
     return (
         <button
             onClick={() => {
-                router.push(`/media/${image.id}`);
+                router.push(`/${type}/${image.id}`);
             }}
         >
             <div
@@ -38,19 +40,20 @@ export const MediaCard = ({
                     } as CSSProperties
                 }
             >
-                <div className="bg-[--media-color]/20 relative flex-1 overflow-hidden  rounded-lg">
+                <div className="relative flex-1 overflow-hidden rounded-lg">
                     <Image
                         src={image?.coverImage?.extraLarge as string}
                         fill
                         sizes="100%"
-                        priority
+                        priority={false}
                         quality={60}
-                        alt={image.title?.userPreferred as string}
-                        className="absolute h-full w-full object-cover"
+                        alt={"Anime Image"}
+                        className="absolute z-10 h-full w-full object-cover"
                     />
-                    <div className="absolute inset-0 z-10 bg-black/0" />
+                    <div className="absolute inset-0 z-20 bg-black/0" />
+                    <div className="absolute inset-0 z-0 animate-pulse bg-[--media-color]" />
                 </div>
-                <div className="md:text-normal line-clamp-1 h-6 pl-1 text-start text-sm font-medium md:pl-4">
+                <div className="md:text-normal line-clamp-2 h-10 pl-1 text-start text-sm font-medium md:line-clamp-1 md:h-6 md:pl-4">
                     {image.title?.userPreferred}
                 </div>
             </div>

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import React, { useEffect } from "react";
+import React from "react";
 
 export const SelectInput = ({
     className,
@@ -25,14 +25,8 @@ export const SelectInput = ({
         value: string;
     }[];
 }) => {
-    const [value, setValue] = React.useState<string | undefined>("");
-
-    useEffect(() => {
-        setValue(defaultValue);
-    }, [defaultValue]);
-
     return (
-        <Select value={value} {...props}>
+        <Select value={undefined} {...props}>
             <SelectTrigger className={cn("w-40", className)}>
                 <SelectValue placeholder={title} />
             </SelectTrigger>
