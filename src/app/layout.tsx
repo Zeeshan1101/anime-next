@@ -15,7 +15,6 @@ export const metadata: Metadata = {
     description: "Track your anime progress",
 };
 
-export const runtime = "edge";
 
 export default function RootLayout({
     children,
