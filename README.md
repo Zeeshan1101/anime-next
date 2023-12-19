@@ -1,7 +1,7 @@
 # anime-next1
 
 ## Description
-This repository contains the source code for [Project Name].
+This repository contains the source code for Anime-next.
 
 ## Installation
 
