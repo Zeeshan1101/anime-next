@@ -13,8 +13,8 @@ const poppins = Poppins({
 });
 
 const appURL = new URL(
-    process.env.NEXT_PUBLIC_BASE_URL
-        ? `https://${process.env.NEXT_PUBLIC_BASE_URL as string}`
+    process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL as string}`
         : `http://localhost:3000`,
 );
 
