@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useGesture } from "@use-gesture/react";
-import { motion, useMotionValue, animate } from "framer-motion";
+import { m, useMotionValue, animate, LazyMotion, domMax } from "framer-motion";
 
 const HorizontalScrollList = ({
     children,
@@ -76,7 +76,7 @@ const HorizontalScrollList = ({
 
     return (
         <div ref={ref}>
-            <motion.div
+            <m.div
                 data-x={scroll}
                 drag="x"
                 dragConstraints={{
@@ -91,7 +91,7 @@ const HorizontalScrollList = ({
                 {...props}
             >
                 {children}
-            </motion.div>
+            </m.div>
         </div>
     );
 };

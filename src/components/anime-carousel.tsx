@@ -2,11 +2,11 @@
 
 import { Dispatch, SetStateAction, useState, CSSProperties } from "react";
 import Carousel from "./framer-motion/carousel";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { CarouselAlt } from "./framer-motion/carousel-alt";
 import { MediaFragment } from "@/__generated__/graphql";
+import { m } from "framer-motion";
 
 // const images = [
 //     {
@@ -25,8 +25,6 @@ import { MediaFragment } from "@/__generated__/graphql";
 //         color: "purple",
 //     },
 // ];
-
-const MotionImage = motion(Image);
 
 export const AnimeCarousel = <T extends MediaFragment[]>({
     images,
@@ -56,7 +54,7 @@ export const AnimeCarousel = <T extends MediaFragment[]>({
                 />
             )}
         >
-            <MotionImage
+            <Image
                 src={images[current].bannerImage as string}
                 alt={images[current]?.title?.userPreferred as string}
                 fill
@@ -90,7 +88,7 @@ const AnimeCarouselControl = <T extends { [x: string]: any }>({
     set: Dispatch<SetStateAction<number>>;
 }) => {
     return (
-        <motion.button
+        <m.button
             className={cn(
                 "relative z-10 h-4 w-4 rounded-full bg-[--media-color] transition-all duration-300",
             )}
@@ -104,11 +102,11 @@ const AnimeCarouselControl = <T extends { [x: string]: any }>({
             }}
         >
             {count === i && (
-                <motion.span
+                <m.span
                     layoutId="coursel-on"
                     className="absolute inset-0 h-full w-full rounded-full outline outline-offset-2 outline-[--media-color]"
-                ></motion.span>
+                ></m.span>
             )}
-        </motion.button>
+        </m.button>
     );
 };

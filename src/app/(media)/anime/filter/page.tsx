@@ -1,6 +1,6 @@
 import { filterParamsCache } from "@/lib/filter-params";
 import { Suspense } from "react";
-import { MediaList } from "./components";
+import { MediaList } from "./(components)";
 import { Loader } from "@/components/loader";
 import { removeEmpty } from "@/lib/utils";
 

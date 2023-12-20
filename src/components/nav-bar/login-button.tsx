@@ -32,9 +32,9 @@ export const LoginButton = async ({ className }: { className?: string }) => {
 
     const data = await anilist_client.request(userQuery, undefined, {
         Authorization: `Bearer ${accessToken}`,
-        // next: {
-        //     tags: ["user"] as unknown,
-        // } as unknown as string,
+        next: {
+            tags: ["user"] as unknown,
+        } as unknown as string,
     });
 
     if (!data) return;

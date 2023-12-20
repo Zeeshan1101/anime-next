@@ -12,7 +12,6 @@ import { MediaSeason } from "@/__generated__/graphql";
 import { useRef } from "react";
 import { getNumberRange, reverseMap } from "@/lib/utils";
 import { useTransition } from "react";
-import { useGesture } from "@use-gesture/react";
 
 type Season = keyof typeof MediaSeason;
 
@@ -21,7 +20,6 @@ const years = getNumberRange(1960, new Date().getFullYear()).reverse();
 export const FilterBar = () => {
     const pathname = usePathname();
     const ref = useRef<HTMLDivElement>(null);
-    const isScrolling = useRef(false);
 
     const [_, startTransition] = useTransition();
 

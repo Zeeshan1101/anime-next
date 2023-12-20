@@ -6,6 +6,7 @@ import MediaList from "@/components/media/scroll-media-list";
 import { getSeasons } from "@/lib/helpers/get-seasons";
 import GenreList from "@/components/genre-list";
 import { anilist_client } from "@/lib/graphql-request";
+import { WatchingList } from "@/components/current-list/watching-list";
 
 export default async function Page() {
     const fetchInfo = getSeasons(new Date());
@@ -33,6 +34,7 @@ export default async function Page() {
 
             <div className="mt-10 h-full w-full space-y-[--gap]">
                 <GenreList />
+                <WatchingList />
                 <MediaList
                     title="Seasonal"
                     media={data.season?.anime as MediaFragment[]}

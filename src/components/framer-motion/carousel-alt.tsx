@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { CSSProperties, useState } from "react";
-import { motion, useIsomorphicLayoutEffect } from "framer-motion";
+import { m, useIsomorphicLayoutEffect } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 import moment from "moment";
@@ -21,7 +21,7 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
 
     return (
         <div className="relative h-96 w-full overflow-hidden rounded-lg">
-            <motion.div
+            <m.div
                 className="relative h-full w-full"
                 animate={{ y: activeIndex * -100 + "%" }}
                 transition={{
@@ -48,14 +48,14 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
                         </div>
                     );
                 })}
-            </motion.div>
+            </m.div>
             <div className="absolute right-5 top-1/2 z-[999] -translate-y-1/2">
                 <div className="flex flex-col items-center gap-4">
                     {filterImages.map((image, index) => {
                         if (image?.bannerImage === null) return;
 
                         return (
-                            <motion.button
+                            <m.button
                                 role="button"
                                 aria-label={`carousel-button-${index}`}
                                 key={index}
@@ -74,15 +74,15 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
                                 }}
                             >
                                 {activeIndex === index && (
-                                    <motion.span
+                                    <m.span
                                         layoutId="coursel-on"
                                         className="absolute inset-0 h-full w-full rounded-full outline outline-offset-2 outline-[--media-color]"
                                         animate={{
                                             outlineColor: "var(--media-color)",
                                         }}
-                                    ></motion.span>
+                                    ></m.span>
                                 )}
-                            </motion.button>
+                            </m.button>
                         );
                     })}
                 </div>

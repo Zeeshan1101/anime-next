@@ -8,7 +8,7 @@ import {
     Dispatch,
     SetStateAction,
 } from "react";
-import { AnimatePresence, Variants, motion } from "framer-motion";
+import { AnimatePresence, Variants, m } from "framer-motion";
 import useMeasure from "react-use-measure";
 import { usePrevious } from "@/lib/hooks/usePrevious";
 import { cn } from "@/lib/utils";
@@ -70,7 +70,7 @@ const Carousel = <T extends Array<any>>({
                     height,
                 }}
             >
-                <motion.div
+                <m.div
                     className="h-full w-full"
                     key={count}
                     variants={variants}
@@ -86,7 +86,7 @@ const Carousel = <T extends Array<any>>({
                     <div className="absolute h-full w-full ">
                         <div className="relative h-full w-full">{children}</div>
                     </div>
-                </motion.div>
+                </m.div>
             </AnimatePresence>
             <div className="absolute right-10 top-1/2 z-50 -translate-y-1/2">
                 <div className="flex flex-col items-center gap-5">

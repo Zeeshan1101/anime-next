@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import React, {
     ReactNode,
     createContext,
@@ -40,14 +40,14 @@ const Toggle = ({
         <mediaContext.Provider
             value={{ media, setMedia, onMediaChange, onAuxClick }}
         >
-            <motion.div
+            <m.div
                 className={cn(
                     "relative flex h-8 w-max items-center justify-center rounded-lg bg-slate-200 dark:bg-slate-900 ",
                     className,
                 )}
             >
                 {children}
-            </motion.div>
+            </m.div>
         </mediaContext.Provider>
     );
 };
@@ -90,7 +90,7 @@ const ToggleButton = React.forwardRef<
                 {children}
             </div>
             {ctx?.media === value && (
-                <motion.div
+                <m.div
                     layoutId="media-toggle"
                     className={cn(
                         "bg-foreground absolute top-0 z-10 h-8 w-24 rounded-lg",
@@ -100,7 +100,7 @@ const ToggleButton = React.forwardRef<
                         duration: 0.2,
                         type: "easeInOut",
                     }}
-                ></motion.div>
+                ></m.div>
             )}
             <div
                 className={cn(
