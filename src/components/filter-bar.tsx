@@ -18,7 +18,6 @@ type Season = keyof typeof MediaSeason;
 const years = getNumberRange(1960, new Date().getFullYear()).reverse();
 
 export const FilterBar = () => {
-    const pathname = usePathname();
     const ref = useRef<HTMLDivElement>(null);
 
     const [_, startTransition] = useTransition();
@@ -28,7 +27,7 @@ export const FilterBar = () => {
         history: "push",
     });
 
-    const { genres, season, seasonYear } = filterParam;
+    const { genres, season, seasonYear, perPage } = filterParam;
 
     return (
         <div className="my-3 mb-4 w-full overflow-hidden">
@@ -39,8 +38,9 @@ export const FilterBar = () => {
                 <Button size="primary" asChild>
                     <Link
                         href={{
-                            pathname: pathname,
-                            query: {},
+                            query: {
+                                perPage: perPage,
+                            },
                         }}
                     >
                         <TrashIcon className="h-5 w-5" />
