@@ -22,13 +22,33 @@ export const metadata: Metadata = {
     metadataBase: appURL,
     title: "Anime Tracking App",
     description: "Track your anime progress",
-};
-
-export const viewport = {
-    themeColor: [
-        { media: "(prefers-color-scheme: light)", color: "cyan" },
-        { media: "(prefers-color-scheme: dark)", color: "black" },
-    ],
+    openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: appURL.href,
+        title: "Anime Tracking App",
+        description: "Track your anime progress",
+        images: [
+            {
+                url: `${appURL}og`,
+                width: 1200,
+                height: 630,
+                alt: "Anime Tracking App",
+            },
+        ],
+    },
+    twitter: {
+        title: "Anime Tracking App",
+        description: "Track your anime progress",
+        images: [
+            {
+                url: `${appURL}og`,
+                width: 1200,
+                height: 630,
+                alt: "Anime Tracking App",
+            },
+        ],
+    },
 };
 
 export default function RootLayout({
