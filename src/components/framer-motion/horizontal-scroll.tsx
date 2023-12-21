@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useGesture } from "@use-gesture/react";
-import { m, useMotionValue, animate, LazyMotion, domMax } from "framer-motion";
+import { m, useMotionValue, animate } from "framer-motion";
 
 const HorizontalScrollList = ({
     children,
@@ -30,7 +30,6 @@ const HorizontalScrollList = ({
             },
             onClickCapture: ({ event }) => {
                 if (hasDragged.current) {
-                    event?.preventDefault();
                     event?.stopPropagation();
                 }
             },
