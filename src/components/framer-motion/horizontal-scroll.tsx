@@ -49,7 +49,6 @@ const HorizontalScrollList = ({
                 from: () => [x.get(), 0],
                 rubberband: true,
                 filterTaps: true,
-                preventDefault: true,
                 preventScroll: true,
                 preventScrollAxis: "y",
                 axisThreshold: {
