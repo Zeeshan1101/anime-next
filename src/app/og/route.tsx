@@ -5,7 +5,7 @@ import Image from "next/image";
 const appURL = new URL(
     process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL as string}`
-        : `http://localhost:3000`,
+        : `http://localhost:3000/`,
 );
 
 export async function GET() {
@@ -26,7 +26,7 @@ export async function GET() {
                 <div tw="flex flex-col justify-center items-center">
                     <div tw="w-full flex text-purple-600">
                         <img
-                            src={`${appURL}/logo2.png`}
+                            src={`${appURL}logo2.png`}
                             tw="w-44 h-44"
                             alt="Logo"
                             width={100}
