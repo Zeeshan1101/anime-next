@@ -12,6 +12,7 @@ import { anilist_client } from "@/lib/graphql-request";
 
 export const LoginButton = async ({ className }: { className?: string }) => {
     const accessToken = cookies().get("access_token")?.value;
+
     if (accessToken === undefined) {
         return (
             <div className="order-2 flex justify-end md:order-3">

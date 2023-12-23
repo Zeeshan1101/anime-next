@@ -19,6 +19,8 @@ export const FilterQuery = gql(`
       fragment anime on Media {
       id
       title {
+        english
+        romaji
         userPreferred
       }
       coverImage {
@@ -42,33 +44,5 @@ export const FilterQuery = gql(`
       description
       type
       format
-      status(version: 2)
-      episodes
-      duration
-      chapters
-      volumes
-      genres
-      isAdult
-      averageScore
-      popularity
-      nextAiringEpisode {
-        airingAt
-        timeUntilAiring
-        episode
-      }
-      mediaListEntry {
-        id
-        status
-      }
-      studios(isMain: true) {
-        edges {
-          isMain
-          node {
-            id
-            name
-          }
-        }
-      }
-
       }
 `);

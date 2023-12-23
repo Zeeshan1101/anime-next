@@ -1,4 +1,4 @@
-import { MediaFragment, MediaType } from "@/__generated__/graphql";
+import { Media, MediaFragment, MediaType } from "@/__generated__/graphql";
 import { AnimeCarousel } from "@/components/anime-carousel";
 import { PageQuery } from "@/graphql/pages/anime";
 import { notFound } from "next/navigation";
@@ -7,6 +7,7 @@ import { getSeasons } from "@/lib/helpers/get-seasons";
 import GenreList from "@/components/genre-list";
 import { anilist_client } from "@/lib/graphql-request";
 import { WatchingList } from "@/components/current-list/watching-list";
+import { transformerAnimeData } from "@/lib/transformers";
 
 export default async function Page() {
     const fetchInfo = getSeasons(new Date());
@@ -37,18 +38,20 @@ export default async function Page() {
                 <WatchingList />
                 <MediaList
                     title="Seasonal"
-                    media={data.season?.anime as MediaFragment[]}
-                    link={`/anime?season=${fetchInfo.currentSeason}&seasonYear=${fetchInfo.currentYear}`}
+                    media={transformerAnimeData(data.season?.anime as Media[])}
+                    link={`/anime/filter?season=${fetchInfo.currentSeason}&seasonYear=${fetchInfo.currentYear}`}
                 />
                 <MediaList
                     title="Upcoming"
-                    media={data.nextSeason?.anime as MediaFragment[]}
-                    link={`/anime?season=${fetchInfo.nextSeason}&seasonYear=${fetchInfo.nextSeasonYear}`}
+                    media={transformerAnimeData(
+                        data.nextSeason?.anime as Media[],
+                    )}
+                    link={`/anime/filter?season=${fetchInfo.nextSeason}&seasonYear=${fetchInfo.nextSeasonYear}`}
                 />
                 <MediaList
                     title="Popular"
-                    media={data.popular?.anime as MediaFragment[]}
-                    link="/anime?sort=POPULARITY_DESC"
+                    media={transformerAnimeData(data.popular?.anime as Media[])}
+                    link="/anime/filter?sort=POPULARITY_DESC"
                 />
             </div>
         </main>

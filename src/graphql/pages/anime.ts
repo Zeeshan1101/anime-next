@@ -45,22 +45,14 @@ export const PageQuery = gql(`
       fragment media on Media {
             id
             title {
+                  english
+                  romaji
                   userPreferred
             }
             coverImage {
                   extraLarge
                   large
                   color
-            }
-            startDate {
-                  year
-                  month
-                  day
-            }
-            endDate {
-                  year
-                  month
-                  day
             }
             bannerImage
             season

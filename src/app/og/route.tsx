@@ -1,6 +1,11 @@
 import { ImageResponse } from "next/og";
 // App router includes @vercel/og.
 // No need to install it.
+const appURL = new URL(
+    process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL as string}`
+        : `http://localhost:3000`,
+);
 
 export async function GET() {
     return new ImageResponse(
@@ -17,10 +22,19 @@ export async function GET() {
                     backgroundColor: "white",
                 }}
             >
-                <div tw="flex gap-10 text-4xl">
-                    <div tw="text-purple-600 px-2">Anime</div>
-                    <div tw="text-indigo-600 px-2">Tracking</div>
-                    <div tw="text-purple-600 px-2">App</div>
+                <div tw="flex flex-col justify-center items-center">
+                    <div tw="w-full flex text-purple-600">
+                        <img
+                            src={`${appURL}/logo2.png`}
+                            tw="w-44 h-44"
+                            alt="Logo"
+                        />
+                    </div>
+                    <div tw="flex text-4xl">
+                        <div tw="px-2">Anime</div>
+                        <div tw="px-2">Tracking</div>
+                        <div tw="px-2">App</div>
+                    </div>
                 </div>
             </div>
         ),

@@ -1,26 +1,17 @@
-import HorizontalScrollList from "@/components/framer-motion/horizontal-scroll";
-import { cookies } from "next/headers";
-import { anilist_client } from "@/lib/graphql-request";
-import { UserProgress, userQuery } from "@/graphql/user";
 import { Media, MediaType } from "@/__generated__/graphql";
+import HorizontalScrollList from "@/components/framer-motion/horizontal-scroll";
+import { UserProgress } from "@/graphql/user";
+import { anilist_client } from "@/lib/graphql-request";
+import { cookies } from "next/headers";
 import { WatchCard } from "./watch-card";
 
 export const WatchingList = async () => {
-    const accessToken = cookies().get("access_token")?.value;
+    const userId = cookies().get("user_id")?.value;
 
-    if (!accessToken) return false;
-
-    const user = await anilist_client.request(userQuery, undefined, {
-        Authorization: `Bearer ${accessToken}`,
-        next: {
-            tags: ["user"] as unknown,
-        } as unknown as string,
-    });
-
-    if (!user.user?.id) return false;
+    if (!userId) return false;
 
     const data = await anilist_client.request(UserProgress, {
-        id: user.user.id,
+        id: parseInt(userId),
         type: MediaType.Anime,
     });
 

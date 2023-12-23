@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 
 import moment from "moment";
 import { MediaFragment } from "@/__generated__/graphql";
+import Link from "next/link";
 
 const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -36,6 +37,7 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
                     return (
                         <div key={index} className="h-full w-full">
                             <CarouselItem
+                                id={image.id as number}
                                 image={image?.bannerImage || ""}
                                 alt={image.title?.userPreferred as string}
                                 episode={
@@ -92,11 +94,13 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
 };
 
 const CarouselItem = ({
+    id,
     image,
     alt,
     episode,
     airingAt,
 }: {
+    id: number;
     image: string;
     alt: string;
     episode: number;
@@ -114,9 +118,12 @@ const CarouselItem = ({
             />
             <div className="absolute bottom-5 z-20 flex w-full flex-col items-center justify-between px-14 text-center sm:flex-row sm:text-justify">
                 <div className="text-white">
-                    <div className="w-96 text-xl font-semibold sm:text-2xl ">
+                    <Link
+                        href={`/anime/${id}`}
+                        className="w-96 text-xl font-semibold sm:text-2xl "
+                    >
                         {alt}
-                    </div>
+                    </Link>
                     <div className="opacity-60 ">
                         {episode && episode} Episodes
                     </div>

@@ -5,13 +5,14 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { CSSProperties } from "react";
 import { useRouter } from "next/navigation";
+import { AnimeData } from "@/lib/transformers";
 
 export const MediaCard = ({
     image,
     scroll = false,
     className,
 }: {
-    image: MediaFragment | AnimeFragment;
+    image: AnimeData;
     scroll?: Boolean;
     className?: string;
 }) => {
@@ -22,6 +23,7 @@ export const MediaCard = ({
     return (
         <button
             onClick={() => {
+                console.log("click");
                 router.push(`/${type}/${image.id}`);
             }}
         >
@@ -35,14 +37,13 @@ export const MediaCard = ({
                 )}
                 style={
                     {
-                        "--media-color":
-                            image?.coverImage?.color || "--foreground",
+                        "--media-color": image?.color || "--foreground",
                     } as CSSProperties
                 }
             >
                 <div className="relative flex-1 overflow-hidden rounded-lg">
                     <Image
-                        src={image?.coverImage?.extraLarge as string}
+                        src={image?.coverImage as string}
                         fill
                         sizes="100%"
                         priority={false}
@@ -54,7 +55,7 @@ export const MediaCard = ({
                     <div className="absolute inset-0 z-0 animate-pulse bg-[--media-color]" />
                 </div>
                 <div className="md:text-normal line-clamp-2 h-10 pl-1 text-start text-sm font-medium md:line-clamp-1 md:h-6 md:pl-4">
-                    {image.title?.userPreferred}
+                    {image.title}
                 </div>
             </div>
         </button>

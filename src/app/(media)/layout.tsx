@@ -2,6 +2,7 @@ import { MediaToggle } from "@/components/media-toggle";
 import { ReactNode } from "react";
 import { SearchInput } from "@/components/nav-bar/search-input";
 import { LoginButton } from "@/components/nav-bar/login-button";
+import { ScrollUp } from "@/components/scroll-up";
 
 export default function Layout({ children }: { children?: ReactNode }) {
     return (
@@ -14,6 +15,7 @@ export default function Layout({ children }: { children?: ReactNode }) {
             <div className="flex flex-1">
                 <div className="w-full flex-1">{children}</div>
             </div>
+            <ScrollUp />
         </div>
     );
 }
