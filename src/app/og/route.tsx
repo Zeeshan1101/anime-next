@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import Image from "next/image";
 // App router includes @vercel/og.
 // No need to install it.
 const appURL = new URL(
@@ -28,6 +29,8 @@ export async function GET() {
                             src={`${appURL}/logo2.png`}
                             tw="w-44 h-44"
                             alt="Logo"
+                            width={100}
+                            height={100}
                         />
                     </div>
                     <div tw="flex text-4xl">
