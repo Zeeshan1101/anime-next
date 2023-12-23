@@ -31,7 +31,7 @@ export const MediaCard = ({
                 className={cn(
                     "card flex flex-shrink-0 select-none flex-col gap-1",
                     scroll
-                        ? "min-h-[16rem] w-[10rem]  sm:min-h-[18rem]  md:min-h-[20rem] md:w-[12rem] lg:min-h-[22rem]  lg:w-[14rem] xl:min-h-[24rem] xl:w-[16rem]"
+                        ? "min-h-[16rem] w-[10rem]  sm:min-h-[18rem]  md:min-h-[20rem] md:w-[12rem] lg:min-h-[20rem]  lg:w-[14rem] xl:min-h-[24rem] xl:w-[16rem]"
                         : "h-full w-full",
                     className,
                 )}

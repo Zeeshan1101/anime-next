@@ -17,8 +17,6 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     if (!data) return false;
 
-    console.log(data?.media?.recommendations?.nodes);
-
     return (
         <main className="space-y-[--gap]">
             <section id="main">
@@ -51,8 +49,8 @@ export default async function Page({ params }: { params: { id: string } }) {
                             </>
                         )}
                         <div className="absolute left-1/2 top-1/4 w-10/12 -translate-x-1/2  rounded-lg">
-                            <div className="flex h-full grid-flow-col grid-cols-6 flex-col items-center gap-5 lg:grid lg:grid-flow-row xl:grid-cols-5">
-                                <div className="relative col-span-2 h-96 w-full max-w-[16rem] rounded-lg shadow xl:col-span-1">
+                            <div className="flex h-full grid-cols-6 flex-col items-center gap-5 lg:grid lg:grid-flow-col xl:grid-cols-4 2xl:grid-cols-5">
+                                <div className="relative col-span-2 h-96 w-full max-w-[17rem] rounded-lg shadow xl:col-span-1 xl:max-w-xs">
                                     <Image
                                         src={
                                             data.media?.coverImage

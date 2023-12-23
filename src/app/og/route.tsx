@@ -25,6 +25,7 @@ export async function GET() {
             >
                 <div tw="flex flex-col justify-center items-center">
                     <div tw="w-full flex text-purple-600">
+                        {/* eslint-disable-next-line */}
                         <img
                             src={`${appURL}logo2.png`}
                             tw="w-44 h-44"

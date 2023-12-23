@@ -10,7 +10,7 @@ export const Summary = ({ children }: { children: ReactNode }) => {
         <div className="px-[--padding-x]">
             <div
                 className={cn(
-                    "after:to-background relative overflow-hidden text-ellipsis transition-all duration-500 after:absolute after:inset-0 after:z-10 after:bg-gradient-to-b after:from-transparent after:transition-all after:content-['']",
+                    "after:to-background relative overflow-hidden text-ellipsis text-sm transition-all duration-500 after:absolute after:inset-0 after:-bottom-2 after:z-10 after:bg-gradient-to-b after:from-transparent after:transition-all after:content-[''] md:text-base",
                     show
                         ? "max-h-[1100px] after:invisible"
                         : "max-h-28 after:visible",
