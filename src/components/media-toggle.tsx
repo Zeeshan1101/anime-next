@@ -24,7 +24,10 @@ const MediaToggle = () => {
                         let anime = pathname === "/anime";
 
                         if (manga && filterInclude) {
-                            path = pathname.replace("/manga", "/anime");
+                            path =
+                                pathname.replace("/manga", "/anime") +
+                                "?" +
+                                new URLSearchParams(searchParams).toString();
                         } else if (anime && !filterInclude) {
                             path = "/anime/filter";
                         } else {
@@ -36,7 +39,10 @@ const MediaToggle = () => {
                         let manga = pathname === "/manga";
                         let anime = pathname.startsWith("/anime");
                         if (anime && filterInclude) {
-                            path = pathname.replace("/anime", "/manga");
+                            path =
+                                pathname.replace("/anime", "/manga") +
+                                "?" +
+                                new URLSearchParams(searchParams).toString();
                         } else if (manga && !filterInclude) {
                             path = "/manga/filter";
                         } else {
@@ -50,8 +56,7 @@ const MediaToggle = () => {
                     }
                 }
 
-                const wholePath =
-                    path + "?" + new URLSearchParams(searchParams).toString();
+                const wholePath = path;
 
                 router.push(wholePath);
             }}

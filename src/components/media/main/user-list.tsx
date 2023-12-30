@@ -1,4 +1,4 @@
-import { MediaList } from "@/__generated__/graphql";
+import { MediaList, MediaListStatus } from "@/__generated__/graphql";
 import HorizontalScrollList from "@/components/framer-motion/horizontal-scroll";
 import { AnimeUserListQuery } from "@/graphql/pages/individual-anime";
 import { anilist_client } from "@/lib/graphql-request";
@@ -25,6 +25,8 @@ export const UserList = async ({ id }: { id: number }) => {
     );
 
     if (!data?.users?.mediaList?.length) return false;
+
+    console.log(data?.users.mediaList);
 
     return (
         <div className="space-y-3">
@@ -66,7 +68,10 @@ const UserCard = ({ user }: { user: MediaList }) => {
                     <div className="capitaliz text-xs">{user?.status}</div>
                 </div>
             </div>
-            <div className="absolute right-4 top-4 z-10">{user.progress}</div>
+            <div className="absolute left-4 top-4 z-10">{user.progress}</div>
+            {user?.status === MediaListStatus.Completed && (
+                <div className="absolute  right-4 top-4 z-10">{user.score}</div>
+            )}
         </div>
     );
 };

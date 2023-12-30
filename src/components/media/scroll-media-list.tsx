@@ -1,4 +1,3 @@
-import { Media, MediaFragment } from "@/__generated__/graphql";
 import Link from "next/link";
 import HorizontalScrollList from "../framer-motion/horizontal-scroll";
 import { MediaCard } from "./media-card";
@@ -13,7 +12,7 @@ const ScrollMediaList = ({
     title: string;
     link?: string;
 }) => {
-    if (!media) return false;
+    if (!media?.length) return false;
 
     return (
         <div className="space-y-3">

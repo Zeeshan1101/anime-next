@@ -62,7 +62,7 @@ const ToggleButton = React.forwardRef<
     }
 >(({ value, children, className, motionClassName, ...props }, ref) => {
     const ctx = useContext(mediaContext);
-    const [isPending, startTransition] = useTransition();
+    const [_, startTransition] = useTransition();
 
     return (
         <button

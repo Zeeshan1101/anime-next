@@ -6,7 +6,6 @@ import { filterParams } from "@/lib/filter-params";
 import { Button } from "./ui/button";
 import { TrashIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { SelectInput } from "./input/select-input";
 import { MediaSeason } from "@/__generated__/graphql";
 import { useRef } from "react";

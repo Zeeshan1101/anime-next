@@ -3,6 +3,7 @@ import {
       MediaType,
       MediaSource,
       MediaSeason,
+      StaffLanguage,
 } from "@/__generated__/graphql";
 import {
       createSearchParamsCache,
@@ -32,3 +33,13 @@ export const filterParams = {
 };
 
 export const filterParamsCache = createSearchParamsCache(filterParams);
+
+export const voiceActorParams = {
+      page: parseAsInteger.withDefault(1),
+      perPage: parseAsInteger.withDefault(15),
+      language: parseAsStringEnum<StaffLanguage>(
+            Object.values(StaffLanguage),
+      ).withDefault(StaffLanguage.Japanese),
+};
+
+export const voiceActorParamsCache = createSearchParamsCache(voiceActorParams);

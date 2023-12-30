@@ -43,3 +43,14 @@ export const UserProgress = gql(`
         }
       }
  `);
+
+export const UserAnimeProgress = gql(`
+      query UserAnimeProgess($userId:Int,$id:Int){
+        MediaList(mediaId:$id,userId:$userId) {
+          id
+          score
+          progress
+          status
+        }
+      }
+      `);

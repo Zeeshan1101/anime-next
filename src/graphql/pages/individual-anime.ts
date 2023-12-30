@@ -62,7 +62,19 @@ export const IndividualAnimeQuery = gql(`
                 }
                }
              }
-        }
+         stats{
+                   statusDistribution {
+                     status
+                     amount
+                   }
+                   scoreDistribution {
+                     score
+                     amount
+                   }
+                 }
+
+                 }
+
       }
 `);
 
@@ -95,3 +107,67 @@ export const AnimeUserListQuery = gql(`
          }
       }
 `);
+
+export const AnimeMetadataQuery = gql(`
+      query AnimeMetadata($id: Int) {
+            media:Media(id: $id) {
+                  id
+                  title {
+                        romaji
+                        english
+                        native
+                        userPreferred
+                  }
+            }
+            }
+      `);
+
+export const AnimeVoiceActorsQuery = gql(`
+      query VoiceActorList($id: Int, $language: StaffLanguage, $page: Int, $perPage: Int) {
+        Media(id: $id) {
+            coverImage {
+                  color
+            }
+          characters(sort: [ROLE, RELEVANCE, ID], page: $page, perPage: $perPage) {
+            edges {
+              name
+              voiceActors(language: $language, sort: [ROLE, RELEVANCE]) {
+                id
+                name {
+                  first
+                  middle
+                  last
+                  full
+                  native
+                  userPreferred
+                }
+                gender
+                language: languageV2
+                description
+                image {
+                  large
+                  medium
+                }
+              }
+              role
+              node {
+                id
+                name {
+                  first
+                  middle
+                  last
+                  full
+                  native
+                  userPreferred
+                }
+                image {
+                  large
+                  medium
+                }
+              }
+            }
+          }
+        }
+      }
+
+      `);

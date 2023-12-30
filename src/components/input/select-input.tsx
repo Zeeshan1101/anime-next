@@ -15,19 +15,37 @@ export const SelectInput = ({
     className,
     title,
     options,
+    ariaLabel,
     defaultValue,
+    id,
     ...props
 }: SelectPrimitive.SelectProps & {
     className?: string;
     title: string;
+    ariaLabel?: string;
+    id?: string;
     options?: {
         label: string;
         value: string;
     }[];
 }) => {
+    const [open, setOpen] = React.useState(false);
+
     return (
-        <Select value={undefined} {...props}>
-            <SelectTrigger className={cn("w-40", className)}>
+        <Select
+            open={open}
+            defaultValue={defaultValue}
+            onOpenChange={setOpen}
+            value={undefined}
+            {...props}
+        >
+            <SelectTrigger
+                id={id || "select"}
+                aria-expanded={open}
+                role="combobox"
+                aria-label={ariaLabel}
+                className={cn("w-40", className)}
+            >
                 <SelectValue placeholder={title} />
             </SelectTrigger>
             <SelectContent>

@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import Image from "next/image";
 // App router includes @vercel/og.
 // No need to install it.
 const appURL = new URL(

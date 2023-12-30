@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { CSSProperties, useState } from "react";
 import { m, useIsomorphicLayoutEffect } from "framer-motion";
@@ -124,9 +125,9 @@ const CarouselItem = ({
                     >
                         {alt}
                     </Link>
-                    <div className="opacity-60 ">
-                        {episode && episode} Episodes
-                    </div>
+                    {episode && (
+                        <div className="opacity-60 ">{episode} Episodes</div>
+                    )}
                 </div>
                 <div className="text-normal  font-medium text-white sm:text-xl">
                     {airingAt && moment.unix(airingAt).calendar()}

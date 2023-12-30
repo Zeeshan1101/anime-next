@@ -1,14 +1,47 @@
-import { Media, MediaStatus } from "@/__generated__/graphql";
+import {
+    CharacterConnection,
+    Media,
+    MediaStatus,
+    StatusDistribution,
+} from "@/__generated__/graphql";
 import { ShowEpisodes } from "@/components/media/main/show-episodes";
 import { Summary } from "@/components/media/main/summary";
 import { Timer } from "@/components/media/main/timer";
 import { UserList } from "@/components/media/main/user-list";
-import { IndividualAnimeQuery } from "@/graphql/pages/individual-anime";
+import {
+    AnimeMetadataQuery,
+    IndividualAnimeQuery,
+} from "@/graphql/pages/individual-anime";
 import { anilist_client } from "@/lib/graphql-request";
 import Image from "next/image";
 import { CSSProperties } from "react";
 import ScrollMediaList from "@/components/media/scroll-media-list";
-import { TranformedAnimeData, transformerAnimeData } from "@/lib/transformers";
+import {
+    TranformedAnimeData,
+    transformerAnimeData,
+    transformerAnimeVoiceActors,
+} from "@/lib/transformers";
+import { DisplayStats } from "@/components/media/stats/display-stats";
+import { VoicactorList } from "@/components/media/staff/voiceactor-list";
+import { AnimeProgress } from "@/components/media/anime-progress";
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+    if (!parseInt(params.id)) return {};
+
+    const data = await anilist_client.request(AnimeMetadataQuery, {
+        id: parseInt(params.id),
+    });
+
+    return {
+        title: (data?.media?.title?.userPreferred ||
+            data?.media?.title?.english ||
+            data?.media?.title?.romaji) as string,
+        description: "Anime Tracking App",
+        keywords: (data?.media?.title?.userPreferred ||
+            data?.media?.title?.english ||
+            data?.media?.title?.romaji) as string,
+    };
+}
 
 export default async function Page({ params }: { params: { id: string } }) {
     const data = await anilist_client.request(IndividualAnimeQuery, {
@@ -18,7 +51,15 @@ export default async function Page({ params }: { params: { id: string } }) {
     if (!data) return false;
 
     return (
-        <main className="space-y-[--gap]">
+        <main
+            className="space-y-[--gap]"
+            style={
+                {
+                    "--media-color":
+                        data?.media?.coverImage?.color || "var(--foreground)",
+                } as CSSProperties
+            }
+        >
             <section id="main">
                 <div className="px-[--padding-x]">
                     <div
@@ -50,7 +91,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                         )}
                         <div className="absolute left-1/2 top-1/4 w-10/12 -translate-x-1/2  rounded-lg">
                             <div className="flex h-full grid-cols-6 flex-col items-center gap-5 lg:grid lg:grid-flow-col xl:grid-cols-4 2xl:grid-cols-5">
-                                <div className="relative col-span-2 h-96 w-full max-w-[17rem] rounded-lg shadow xl:col-span-1 xl:max-w-xs">
+                                <div className="relative col-span-2 h-96 w-full max-w-[17rem] overflow-hidden rounded-lg shadow xl:col-span-1 xl:max-w-xs">
                                     <Image
                                         src={
                                             data.media?.coverImage
@@ -58,13 +99,22 @@ export default async function Page({ params }: { params: { id: string } }) {
                                         }
                                         fill
                                         sizes="100%"
-                                        className="rounded-lg"
+                                        className="absolute inset-0 z-10 rounded-lg object-cover"
                                         alt={
                                             (data.media?.title
                                                 ?.english as string) ||
                                             "Cover Image"
                                         }
                                     />
+                                    <div className="absolute inset-0 z-0 animate-pulse bg-[--media-color]" />
+                                    <div className="absolute bottom-2 right-2 z-20">
+                                        <AnimeProgress
+                                            id={parseInt(params.id)}
+                                            total={
+                                                data?.media?.episodes as number
+                                            }
+                                        />
+                                    </div>
                                 </div>
                                 <div className="text-foreground col-span-4 flex items-center text-center lg:text-left lg:text-[--text-color]">
                                     <div>
@@ -110,7 +160,10 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </div>
             </section>
 
-            <section id="relation" className="scroll-mb-20 space-y-[--gap]">
+            <section
+                id="relation"
+                className="scroll-mt-3 space-y-[--gap] md:scroll-mt-10"
+            >
                 <ScrollMediaList
                     title="Related"
                     media={transformerAnimeData(
@@ -138,9 +191,16 @@ export default async function Page({ params }: { params: { id: string } }) {
                 />
             </section>
 
-            <section id="stats"></section>
-
-            <section id="staff"></section>
+            <section id="stats" className="w-full scroll-mt-3 md:scroll-mt-10">
+                <div className="w-full pt-10 md:pt-0">
+                    <DisplayStats
+                        scores={
+                            data?.media?.stats
+                                ?.statusDistribution as StatusDistribution[]
+                        }
+                    />
+                </div>
+            </section>
         </main>
     );
 }
