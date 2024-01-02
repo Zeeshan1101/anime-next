@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 import Image from "next/image";
 import { CSSProperties } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimeData } from "@/lib/transformers";
 
 export const MediaCard = ({
@@ -17,6 +17,8 @@ export const MediaCard = ({
     className?: string;
 }) => {
     const router = useRouter();
+
+    const path = usePathname().startsWith(`/${image.type?.toLowerCase()}`);
 
     const type = image.type === "ANIME" ? "anime" : "manga";
 
@@ -53,6 +55,11 @@ export const MediaCard = ({
                     />
                     <div className="absolute inset-0 z-20 bg-black/0" />
                     <div className="absolute inset-0 z-0 animate-pulse bg-[--media-color]" />
+                    {path ? null : (
+                        <div className="absolute right-2 top-2 z-30 grid h-5 w-5 place-items-center rounded-lg bg-[--media-color] text-xs">
+                            {image?.type && image.type[0]}
+                        </div>
+                    )}
                 </div>
                 <div className="md:text-normal line-clamp-2 h-10 pl-1 text-start text-sm font-medium md:line-clamp-1 md:h-6 md:pl-4">
                     {image.title}

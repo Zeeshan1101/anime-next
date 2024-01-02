@@ -33,8 +33,6 @@ export async function getUserProgress(id: number) {
 }
 
 export async function updateUserProgress(data: FormData) {
-    console.log(Object.fromEntries(data.entries()));
-
     const { id, progress, score, status } = Object.fromEntries(
         data.entries(),
     ) as {
@@ -44,10 +42,11 @@ export async function updateUserProgress(data: FormData) {
     if (!parseInt(id)) return null;
 
     const access_token = cookies().get("access_token")?.value;
+
     if (!access_token) redirect("/login");
-    let res;
+
     try {
-        res = await anilist_client.request(
+        await anilist_client.request(
             UpdateUserAnimeProgress,
             {
                 mediaId: parseInt(id),
@@ -61,6 +60,7 @@ export async function updateUserProgress(data: FormData) {
         );
     } catch (e) {
         console.log(e);
+
         return null;
     }
 

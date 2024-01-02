@@ -6,7 +6,7 @@ import { m, useIsomorphicLayoutEffect } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 import moment from "moment";
-import { MediaFragment } from "@/__generated__/graphql";
+import { MediaFragment, MediaType } from "@/__generated__/graphql";
 import Link from "next/link";
 
 const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
@@ -40,13 +40,22 @@ const CarouselAlt = <T extends MediaFragment[]>({ images }: { images: T }) => {
                             <CarouselItem
                                 id={image.id as number}
                                 image={image?.bannerImage || ""}
-                                alt={image.title?.userPreferred as string}
+                                alt={
+                                    (image.type === "ANIME"
+                                        ? image.title?.userPreferred ||
+                                          image.title?.english ||
+                                          image.title?.romaji
+                                        : image.title?.english ||
+                                          image.title?.userPreferred ||
+                                          image.title?.romaji) as string
+                                }
                                 episode={
                                     image.nextAiringEpisode?.episode as number
                                 }
                                 airingAt={
                                     image.nextAiringEpisode?.airingAt as number
                                 }
+                                type={image.type as MediaType}
                             />
                         </div>
                     );
@@ -100,12 +109,14 @@ const CarouselItem = ({
     alt,
     episode,
     airingAt,
+    type,
 }: {
     id: number;
     image: string;
     alt: string;
     episode: number;
     airingAt: number;
+    type: MediaType;
 }) => {
     return (
         <div className="relative z-10 h-full w-full">
@@ -120,7 +131,7 @@ const CarouselItem = ({
             <div className="absolute bottom-5 z-20 flex w-full flex-col items-center justify-between px-14 text-center sm:flex-row sm:text-justify">
                 <div className="text-white">
                     <Link
-                        href={`/anime/${id}`}
+                        href={`/${type.toLowerCase()}/${id}`}
                         className="w-96 text-xl font-semibold sm:text-2xl "
                     >
                         {alt}

@@ -1,30 +1,12 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState, CSSProperties } from "react";
-import Carousel from "./framer-motion/carousel";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { CarouselAlt } from "./framer-motion/carousel-alt";
 import { MediaFragment } from "@/__generated__/graphql";
+import { cn } from "@/lib/utils";
 import { m } from "framer-motion";
-
-// const images = [
-//     {
-//         alt: "One Piece",
-//         url: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/21-wf37VakJmZqs.jpg",
-//         color: "red",
-//     },
-//     {
-//         alt: "Jujustu Kaisen",
-//         url: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/145064-S7qAgxf6kMrW.jpg",
-//         color: "orange",
-//     },
-//     {
-//         alt: "Spy x Family",
-//         url: "https://s4.anilist.co/file/anilistcdn/media/anime/banner/158927-zXtbXUO5iKzX.jpg",
-//         color: "purple",
-//     },
-// ];
+import Image from "next/image";
+import { CSSProperties, Dispatch, SetStateAction, useState } from "react";
+import Carousel from "./framer-motion/carousel";
+import { CarouselAlt } from "./framer-motion/carousel-alt";
 
 export const AnimeCarousel = <T extends MediaFragment[]>({
     images,

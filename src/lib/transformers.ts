@@ -3,16 +3,18 @@ import {
       CharacterRole,
       Maybe,
       Media,
-      StaffConnection,
-      StaffLanguage,
 } from "@/__generated__/graphql";
 
 export const transformerAnimeData = (data: Media[]) => {
       return data.map((item) => ({
             title:
-                  item.title?.userPreferred ||
-                  item.title?.english ||
-                  item.title?.romaji,
+                  item.type === "ANIME"
+                        ? item.title?.userPreferred ||
+                          item.title?.english ||
+                          item.title?.romaji
+                        : item.title?.english ||
+                          item.title?.userPreferred ||
+                          item.title?.romaji,
             id: item.id,
             coverImage: item.coverImage?.extraLarge || item.coverImage?.large,
             color: item.coverImage?.color,

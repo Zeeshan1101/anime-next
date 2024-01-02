@@ -26,8 +26,6 @@ export const UserList = async ({ id }: { id: number }) => {
 
     if (!data?.users?.mediaList?.length) return false;
 
-    console.log(data?.users.mediaList);
-
     return (
         <div className="space-y-3">
             <div className="flex w-full items-center justify-between px-[--padding-x]">
