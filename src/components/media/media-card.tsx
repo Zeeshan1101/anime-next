@@ -1,5 +1,4 @@
 "use client";
-import { AnimeFragment, MediaFragment } from "@/__generated__/graphql";
 import { cn } from "@/lib/utils";
 
 import Image from "next/image";
@@ -25,7 +24,6 @@ export const MediaCard = ({
     return (
         <button
             onClick={() => {
-                console.log("click");
                 router.push(`/${type}/${image.id}`);
             }}
         >

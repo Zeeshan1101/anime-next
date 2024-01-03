@@ -11,10 +11,13 @@ export const WatchCard = ({
     progress: number;
 }) => {
     const router = useRouter();
+
+    const type = anime.type?.toLowerCase();
+
     return (
         <button
             onClick={() => {
-                router.push(`/anime/${anime.id}`);
+                router.push(`/${type}/${anime.id}`);
             }}
         >
             <div className="card relative min-h-[10rem] min-w-[22rem] flex-shrink-0 gap-1 overflow-hidden rounded-lg bg-gray-600 sm:min-h-[10rem] sm:min-w-[23rem] md:min-h-[10rem] md:min-w-[23rem] lg:min-h-[12rem] lg:min-w-[25rem]">

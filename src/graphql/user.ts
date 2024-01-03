@@ -27,6 +27,7 @@ export const UserProgress = gql(`
               status
               media {
               id
+              type
                 coverImage {
                   extraLarge
                   large

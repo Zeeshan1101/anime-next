@@ -151,7 +151,7 @@ function ProgressModal({
             <div className="grid gap-2">
                 <Label htmlFor="status">Status</Label>
                 <Select name="status" defaultValue={data?.status || ""}>
-                    <SelectTrigger className="w-full" id="status">
+                    <SelectTrigger className="h-10 w-full" id="status">
                         <SelectValue placeholder="Status" />
                     </SelectTrigger>
                     <SelectContent>

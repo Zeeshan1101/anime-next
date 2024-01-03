@@ -3,7 +3,6 @@
 import { Shell, Hash, BarChart2, BookUser, LucideIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
-// let's make a function that receive the specific element_id as string and scroll into that element_id
 const scrolltoHash = function (element_id: string) {
     const element = document.getElementById(element_id);
     element?.scrollIntoView({
@@ -19,7 +18,7 @@ const scrollToTop = () => {
 
 const checkIfPresent = (id: string) => {
     const element = document.getElementById(id);
-    console.log(element);
+
     if (element) {
         return true;
     }

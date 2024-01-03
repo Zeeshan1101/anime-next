@@ -7,7 +7,7 @@ import {
     AnimeVoiceActor,
     transformerAnimeVoiceActors,
 } from "@/lib/transformers";
-import { CSSProperties, Suspense } from "react";
+import { Suspense } from "react";
 import Image from "next/image";
 import { Loader } from "@/components/loader";
 

@@ -47,6 +47,19 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     if (!data) return false;
 
+    const relationFunction = () => {
+        if (
+            data?.media?.relations?.nodes?.length ||
+            data?.media?.recommendations?.nodes?.length
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    const relationPresent = relationFunction();
+
     return (
         <main
             className="space-y-[--gap]"
@@ -121,8 +134,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                                         <div className="line-clamp-2  text-xl font-semibold  lg:text-2xl xl:text-4xl">
                                             {data?.media?.title?.english ||
                                                 data?.media?.title
-                                                    ?.userPreferred ||
-                                                data?.media?.title?.romaji}
+                                                    ?.userPreferred}
                                         </div>
                                         <ShowEpisodes
                                             status={
@@ -140,14 +152,6 @@ export default async function Page({ params }: { params: { id: string } }) {
                                 </div>
                             </div>
                         </div>
-                        {data?.media?.nextAiringEpisode && (
-                            <Timer
-                                time={
-                                    data?.media?.nextAiringEpisode
-                                        ?.airingAt as number
-                                }
-                            />
-                        )}
                     </div>
                 </div>
                 <div className="mt-56 space-y-5 lg:mt-32">
@@ -164,37 +168,45 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </div>
             </section>
 
-            <section
-                id="relation"
-                className="scroll-mt-3 space-y-[--gap] md:scroll-mt-10"
-            >
-                <ScrollMediaList
-                    title="Related"
-                    media={transformerAnimeData(
-                        data?.media?.relations?.nodes as Media[],
-                    )}
-                />
-                <ScrollMediaList
-                    title="Recommendations"
-                    media={
-                        data?.media?.recommendations?.nodes?.map((item) => ({
-                            title:
-                                item?.mediaRecommendation?.title?.english ||
-                                item?.mediaRecommendation?.title
-                                    ?.userPreferred ||
-                                item?.mediaRecommendation?.title?.romaji,
+            {relationPresent ? (
+                <section
+                    id="relation"
+                    className="scroll-mt-3 space-y-[--gap] md:scroll-mt-10"
+                >
+                    <ScrollMediaList
+                        title="Related"
+                        media={transformerAnimeData(
+                            data?.media?.relations?.nodes as Media[],
+                        )}
+                    />
+                    <ScrollMediaList
+                        title="Recommendations"
+                        media={
+                            data?.media?.recommendations?.nodes?.map(
+                                (item) => ({
+                                    title:
+                                        item?.mediaRecommendation?.title
+                                            ?.english ||
+                                        item?.mediaRecommendation?.title
+                                            ?.userPreferred,
 
-                            coverImage:
-                                item?.mediaRecommendation?.coverImage
-                                    ?.extraLarge ||
-                                item?.mediaRecommendation?.coverImage?.large,
-                            id: item?.mediaRecommendation?.id,
-                            type: item?.mediaRecommendation?.type,
-                            color: item?.mediaRecommendation?.coverImage?.color,
-                        })) as TranformedAnimeData
-                    }
-                />
-            </section>
+                                    coverImage:
+                                        item?.mediaRecommendation?.coverImage
+                                            ?.extraLarge ||
+                                        item?.mediaRecommendation?.coverImage
+                                            ?.large,
+                                    id: item?.mediaRecommendation?.id,
+                                    type: item?.mediaRecommendation?.type,
+                                    color: item?.mediaRecommendation?.coverImage
+                                        ?.color,
+                                }),
+                            ) as TranformedAnimeData
+                        }
+                    />
+                </section>
+            ) : (
+                <></>
+            )}
 
             <section id="stats" className="w-full scroll-mt-3 md:scroll-mt-10">
                 <div className="w-full pt-10 md:pt-0">
