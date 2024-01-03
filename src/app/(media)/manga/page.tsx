@@ -4,9 +4,9 @@ import { notFound } from "next/navigation";
 import MediaList from "@/components/media/scroll-media-list";
 import GenreList from "@/components/genre-list";
 import { anilist_client } from "@/lib/graphql-request";
-import { WatchingList } from "@/components/current-list/watching-list";
 import { transformerAnimeData } from "@/lib/transformers";
 import { mangaPageQuery } from "@/graphql/pages/manga";
+import { ReadingList } from "@/components/current-list/reading-list";
 
 export default async function Page() {
     const data = await anilist_client.request(mangaPageQuery, {
@@ -29,6 +29,7 @@ export default async function Page() {
 
             <div className="mt-10 h-full w-full space-y-[--gap]">
                 <GenreList />
+                <ReadingList />
                 <MediaList
                     title="Popular"
                     media={transformerAnimeData(data.popular?.media as Media[])}

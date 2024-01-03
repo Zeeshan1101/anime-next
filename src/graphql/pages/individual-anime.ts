@@ -25,6 +25,7 @@ export const IndividualAnimeQuery = gql(`
                  episode
           }
           episodes
+          chapters
           relations {
                nodes{
                  id

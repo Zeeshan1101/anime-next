@@ -1,10 +1,9 @@
 "use client";
 import { Toggle, ToggleButton } from "./framer-motion/toggle";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const MediaToggle = () => {
     const pathname = usePathname();
-    const searchParams = useSearchParams();
     const router = useRouter();
 
     return (
@@ -13,59 +12,12 @@ const MediaToggle = () => {
             className="order-1 col-span-1 h-10"
             onMediaChange={(state) => {
                 let path;
-
-                let filterInclude = pathname.includes("/filter");
-
-                console.log(state);
-
-                switch (state) {
-                    case "anime": {
-                        let manga = pathname.startsWith("/manga");
-                        let anime = pathname === "/anime";
-
-                        if (manga && filterInclude) {
-                            path =
-                                pathname.replace("/manga", "/anime") +
-                                "?" +
-                                new URLSearchParams(searchParams).toString();
-                        } else if (anime && !filterInclude) {
-                            path = "/anime/filter";
-                        } else {
-                            path = "/anime";
-                        }
-                        break;
-                    }
-                    case "manga": {
-                        let manga = pathname === "/manga";
-                        let anime = pathname.startsWith("/anime");
-                        if (anime && filterInclude) {
-                            path =
-                                pathname.replace("/anime", "/manga") +
-                                "?" +
-                                new URLSearchParams(searchParams).toString();
-                        } else if (manga && !filterInclude) {
-                            path = "/manga/filter";
-                        } else {
-                            path = "/manga";
-                        }
-                        break;
-                    }
-                    default: {
-                        path = pathname;
-                        break;
-                    }
-                }
-
-                const wholePath = path;
-
-                router.push(wholePath);
-            }}
-            onAuxClick={(state) => {
                 if (state === "anime") {
-                    router.push("/anime");
+                    path = "/anime";
                 } else {
-                    router.push("/manga");
+                    path = "/manga";
                 }
+                router.push(path);
             }}
         >
             <ToggleButton value="anime" motionClassName="h-10">

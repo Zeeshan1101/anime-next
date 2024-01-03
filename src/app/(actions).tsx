@@ -5,7 +5,7 @@ import { UpdateUserAnimeProgress } from "@/graphql/mutation";
 import { UserAnimeProgress } from "@/graphql/user";
 import { anilist_client } from "@/lib/graphql-request";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function logout() {
@@ -65,4 +65,5 @@ export async function updateUserProgress(data: FormData) {
     }
 
     revalidatePath(`/anime/${id}`);
+    revalidatePath(`/manga/${id}`);
 }

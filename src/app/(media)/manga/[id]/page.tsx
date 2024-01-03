@@ -28,12 +28,12 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     });
 
     return {
-        title: (data?.media?.title?.userPreferred ||
-            data?.media?.title?.english ||
+        title: (data?.media?.title?.english ||
+            data?.media?.title?.userPreferred ||
             data?.media?.title?.romaji) as string,
         description: "Anime Tracking App",
-        keywords: (data?.media?.title?.userPreferred ||
-            data?.media?.title?.english ||
+        keywords: (data?.media?.title?.english ||
+            data?.media?.title?.userPreferred ||
             data?.media?.title?.romaji) as string,
     };
 }
@@ -46,19 +46,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     });
 
     if (!data) return false;
-
-    const relationFunction = () => {
-        if (
-            data?.media?.relations?.nodes?.length ||
-            data?.media?.recommendations?.nodes?.length
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    const relationPresent = relationFunction();
 
     return (
         <main
@@ -132,18 +119,22 @@ export default async function Page({ params }: { params: { id: string } }) {
                                 <div className="text-foreground col-span-4 flex items-center text-center lg:text-left lg:text-[--text-color]">
                                     <div>
                                         <div className="line-clamp-2  text-xl font-semibold  lg:text-2xl xl:text-4xl">
-                                            {data?.media?.title?.userPreferred}
+                                            {data?.media?.title?.english ||
+                                                data?.media?.title
+                                                    ?.userPreferred ||
+                                                data?.media?.title?.romaji}
                                         </div>
                                         <ShowEpisodes
                                             status={
                                                 data?.media
                                                     ?.status as MediaStatus
                                             }
-                                            episodes={data?.media?.episodes}
+                                            episodes={data?.media?.chapters}
                                             nextEpisode={
                                                 data?.media?.nextAiringEpisode
                                                     ?.episode
                                             }
+                                            manga={true}
                                         />
                                     </div>
                                 </div>
@@ -173,45 +164,37 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </div>
             </section>
 
-            {relationPresent ? (
-                <section
-                    id="relation"
-                    className="scroll-mt-3 space-y-[--gap] md:scroll-mt-10"
-                >
-                    <ScrollMediaList
-                        title="Related"
-                        media={transformerAnimeData(
-                            data?.media?.relations?.nodes as Media[],
-                        )}
-                    />
-                    <ScrollMediaList
-                        title="Recommendations"
-                        media={
-                            data?.media?.recommendations?.nodes?.map(
-                                (item) => ({
-                                    title:
-                                        item?.mediaRecommendation?.title
-                                            ?.userPreferred ||
-                                        item?.mediaRecommendation?.title
-                                            ?.romaji,
+            <section
+                id="relation"
+                className="scroll-mt-3 space-y-[--gap] md:scroll-mt-10"
+            >
+                <ScrollMediaList
+                    title="Related"
+                    media={transformerAnimeData(
+                        data?.media?.relations?.nodes as Media[],
+                    )}
+                />
+                <ScrollMediaList
+                    title="Recommendations"
+                    media={
+                        data?.media?.recommendations?.nodes?.map((item) => ({
+                            title:
+                                item?.mediaRecommendation?.title?.english ||
+                                item?.mediaRecommendation?.title
+                                    ?.userPreferred ||
+                                item?.mediaRecommendation?.title?.romaji,
 
-                                    coverImage:
-                                        item?.mediaRecommendation?.coverImage
-                                            ?.extraLarge ||
-                                        item?.mediaRecommendation?.coverImage
-                                            ?.large,
-                                    id: item?.mediaRecommendation?.id,
-                                    type: item?.mediaRecommendation?.type,
-                                    color: item?.mediaRecommendation?.coverImage
-                                        ?.color,
-                                }),
-                            ) as TranformedAnimeData
-                        }
-                    />
-                </section>
-            ) : (
-                <></>
-            )}
+                            coverImage:
+                                item?.mediaRecommendation?.coverImage
+                                    ?.extraLarge ||
+                                item?.mediaRecommendation?.coverImage?.large,
+                            id: item?.mediaRecommendation?.id,
+                            type: item?.mediaRecommendation?.type,
+                            color: item?.mediaRecommendation?.coverImage?.color,
+                        })) as TranformedAnimeData
+                    }
+                />
+            </section>
 
             <section id="stats" className="w-full scroll-mt-3 md:scroll-mt-10">
                 <div className="w-full pt-10 md:pt-0">
