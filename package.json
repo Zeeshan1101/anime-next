@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev & pnpm run watch",
-    "build": "pnpm run generate && next build ",
+    "dev": "next dev & npm run watch",
+    "build": "npm run generate && next build ",
     "start": "next start",
     "lint": "next lint",
     "generate": "graphql-codegen --require dotenv/config --config codegen.ts",
@@ -25,7 +25,6 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@react-spring/web": "^9.7.3",
     "@use-gesture/react": "^10.3.0",
-    "@vercel/speed-insights": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",

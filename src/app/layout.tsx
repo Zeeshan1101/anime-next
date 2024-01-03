@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { TailwindInticator } from "@/components/tailwind-indicator";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LazyMotionWrapper } from "@/components/lazymotion-wrapper";
 
 const poppins = Poppins({
@@ -59,7 +58,6 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={poppins.className}>
-                <SpeedInsights />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
