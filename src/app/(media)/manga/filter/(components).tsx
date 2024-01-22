@@ -1,4 +1,4 @@
-import { Media, PageInfo } from "@/__generated__/graphql";
+import { Media, MediaType, PageInfo } from "@/__generated__/graphql";
 import { MediaCard } from "@/components/media/media-card";
 import { Pagination } from "@/components/pagination";
 import { FilterQuery } from "@/graphql/pages/filter";
@@ -14,6 +14,7 @@ export const MediaList = async ({
 }) => {
       const data = await anilist_client.request(FilterQuery, {
             ...params,
+            type: MediaType.Manga,
       });
 
       return (
