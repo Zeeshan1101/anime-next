@@ -18,6 +18,14 @@ services:
     restart: always
     ports:
       - 3000:3000
+    environment:
+      - ANILIST_DOMAIN=${ANILIST_DOMAIN}
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - REDIRECT_URI=${REDIRECT_URI}
+      - ANILIST_GRAPHQL=${ANILIST_GRAPHQL}
+      - APP_URL=${APP_URL}
+
     env_file:
       - .env
   # Add more containers below (nginx, postgres, etc.)
