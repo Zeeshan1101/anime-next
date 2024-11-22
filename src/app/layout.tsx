@@ -71,11 +71,6 @@ export default function RootLayout({
 					</div>
 					<TailwindInticator />
 				</ThemeProvider>
-				<Script
-					defer
-					src="https://track.shaikzeeshan.me/script.js"
-					data-website-id="f521bcc8-f0c3-43a9-839b-f16698967364"
-				/>
 			</body>
 		</html>
 	);
